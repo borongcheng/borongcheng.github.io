@@ -1,0 +1,118 @@
+# 这是一个toml格式的配置文件
+baseURL: https://borongcheng.github.io/
+# 网站主题
+theme: m10c
+themesDir: themes
+# 网站语言
+languageCode: "zh-CN"
+languageName: "简体中文"
+# 网站标题
+title: '笔记网站'
+defaultContentLanguage: "zh-cn"
+
+#是否包括中日韩文
+hasCJKLanguage: true
+
+# 默认每页列表显示的文章数
+paginate: 12
+# 谷歌分析代号
+googleAnalytics: ""
+#版权描述
+copyright: "私有财产"
+
+# 是否使用robots.txt
+enableRobotsTXT: true
+# 是否使用git信息
+#enableGitInfo: true
+# 是否使用emoji代码
+enableEmoji: true
+
+
+# 作者配置
+
+
+# 菜单配置
+menu:
+  main:
+    - weight: 1
+      identifier: ""
+      # 你可以在名称 (允许 HTML 格式) 之前添加其他信息, 例如图标
+      pre: ""
+      # 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标
+      post: ""
+      name: "文章"
+      url: "/posts/"
+      # 当你将鼠标悬停在此菜单链接上时, 将显示的标题
+      title: ""
+    - weight: 2
+      identifier: "tags"
+      pre: ""
+      post: ""
+      name: "标签"
+      url: "/tags/"
+      title: ""
+    - weight: 3
+      identifier: "categories"
+      pre: ""
+      post: ""
+      name: "分类"
+      url: "/categories/"
+      title: ""
+
+# Hugo 解析文档的配置
+markup:
+  # 语法高亮设置 (https://gohugo.io/content-management/syntax-highlighting)
+  highlight:
+    # 配置代码高亮
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    lineNumbersInTable: true
+    # false 是必要的设置
+    # (https://github.com/dillonzq/LoveIt/issues/158)
+    # Goldmark 是 Hugo 0.60 以来的默认 Markdown 解析库
+    noClasses: false
+
+goldmark:
+  extensions:
+    definitionList: true
+    footnote: true
+    linkify: true
+    strikethrough: true
+    table: true
+    taskList: true
+    typographer: true
+
+goldmark.renderer:
+  # 是否在文档中直接使用 HTML 标签
+  unsafe: true
+
+# 目录设置
+tableOfContents:
+  startLevel: 4
+  endLevel: 6
+
+params:
+  # 网站默认主题样式 ["auto", "light", "dark"]
+  defaultTheme: "dark"
+  # 菜单样式
+  menuStyle: "dark"
+  # 公共 git 仓库路径，仅在 enableGitInfo 设为 true 时有效
+  #gitRepo: ""
+  # LoveIt 新增 | 0.1.1 哪种哈希函数用来 SRI, 为空时表示不使用 SRI
+  # ["sha256", "sha384", "sha512", "md5"]
+  fingerprint: "sha256"
+  # LoveIt 新增 | 0.2.0 日期格式
+  dateFormat: "2006-01-02"
+  # 网站标题, 用于 Open Graph 和 Twitter Cards
+  title: "柏荣的博客"
+  # 网站描述, 用于 RSS, SEO, Open Graph 和 Twitter Cards
+  description: "柏荣的博客"
+  # 网站图片, 用于 Open Graph 和 Twitter Cards
+  images:
+    - "首页中间的图片"
+  author: "borong.cheng"
+module:
+  mounts:
+    - source: assets/css
+      target: static/css
