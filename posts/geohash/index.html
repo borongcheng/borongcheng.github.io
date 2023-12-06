@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <title> // 笔记网站</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.121.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="borong.cheng" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://borongcheng.github.io/%E9%A6%96%E9%A1%B5%E4%B8%AD%E9%97%B4%E7%9A%84%E5%9B%BE%E7%89%87" /><meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="GeoHash 一、定义 ​ 通常我们用经度纬度两个二维坐标点来精准表示一个位置，如果我们需要按位置范围查找，这样就得用遍历的形式，效率不高，所以引入了Geo"/>
+
+    <meta property="og:title" content="" />
+<meta property="og:description" content="GeoHash 一、定义 ​ 通常我们用经度纬度两个二维坐标点来精准表示一个位置，如果我们需要按位置范围查找，这样就得用遍历的形式，效率不高，所以引入了Geo" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://borongcheng.github.io/posts/geohash/" /><meta property="og:image" content="https://borongcheng.github.io/%E9%A6%96%E9%A1%B5%E4%B8%AD%E9%97%B4%E7%9A%84%E5%9B%BE%E7%89%87" /><meta property="article:section" content="posts" />
+
+<meta property="og:site_name" content="柏荣的博客" />
+
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://borongcheng.github.io/"><img class="app-header-avatar" src="/avatar.jpg" alt="borong.cheng" /></a>
+      <span class="app-header-title">笔记网站</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/posts/">文章</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">标签</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/categories/">分类</a>
+      </nav>
+      <p>柏荣的博客</p>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title"></h1>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jan 1, 0001
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          5 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h1 id="geohash">GeoHash</h1>
+<h1 id="一定义">一、定义</h1>
+<p>​		通常我们用经度纬度两个二维坐标点来精准表示一个位置，如果我们需要按位置范围查找，这样就得用遍历的形式，效率不高，所以引入了GeoHash算法，就是通过将经纬度编码，将二维转一维，给地理位置分区的一种算法。</p>
+<blockquote>
+<p>​		GeoHash是一种地址编码的方法，他能够把二维的空间经纬度数据编码成一个字符串。</p>
+</blockquote>
+<h1 id="二设计">二、设计</h1>
+<p>​		我们知道地理坐标经度范围是东经180到西经180，纬度范围是南纬90到北纬90，我们设定西经为负，南纬为负，所以地球上的经度范围为[-180,180]，纬度范围为[-90,90]。</p>
+<p>​		这样地球可以分成四个部分，如果纬度范围[-90,0]用二进制0表示，[0,90]用二进制1表示，经度范围[-180,0]用二进制0表示,[0,180]用二进制1表示。地球位置可以用如下表示：</p>
+<p><img src="%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87/webp" alt="img"></p>
+<p>在小范围内递归对半划分（通过二进制数表示一个范围内的坐标）</p>
+<p><img src="%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87/webp-20210901103047806" alt="img"></p>
+<blockquote>
+<p>​		可以看到划分的区域多了，也更精确了，GeoHash就是基于这种思想，划分的次数更多，区域更多，区域面积更小。通过经纬度坐标给位置分区。</p>
+</blockquote>
+<h1 id="三算法">三、算法</h1>
+<p>Geohash算法一共有三步：</p>
+<h2 id="1计算二进制编码">1、计算二进制编码</h2>
+<p>​		根据坐标的经纬度来计算二进制编码，</p>
+<p>​		纬度范围[-90,0]用二进制0表示，[0,90]用二进制1表示，经度范围[-180,0]用二进制0表示,[0,180]用二进制1表示。</p>
+<p>例子：</p>
+<p>​		给纬度39.928167进行二进制编码</p>
+<ul>
+<li>区间[-90,90]进行二分为[-90,0),[0,90]，称为左右区间，可以确定39.928167属于右区间[0,90],标记1；</li>
+<li>将区间[0,90]进行二分[0,45),[45,90]，可以确定目标在[0,45)区间，所以标记为0；</li>
+<li>递归上述过程，39.928167总是属于某个区间[a,b]。随着每次迭代区间[a,b]总在缩小，并且逼近39.928167。</li>
+<li>最后39.928167的二进制编码是1011100，编码的长度于递归的次数有关，编码越长精度越高。</li>
+</ul>
+<h2 id="2进行组码">2、进行组码</h2>
+<p>​		在对经纬度进行编码之后会获得两个与之对应的二进制数，通过规则偶数放经度，奇数放纬度的方式将两个二进制数组合成一个新的二进制数。</p>
+<h2 id="3进行base32编码">3、进行Base32编码</h2>
+<p>​		Base32编码是用0-9、b-z（去掉a、i、l、o）组成的32个字母进行编码。</p>
+<p>​		具体操作就是将上一步得到的合并成的二进制数转换成十进制数，然后对应生成Base32码，需要注意的是5个二进制位转换成一个Base32码。</p>
+<blockquote>
+<p>当GeoHash的Base32码长度为8时，精度在19米左右，而当编码长度为9时，精度在2米左右，编码长度需要根据实际需求来定。</p>
+</blockquote>
+<h2 id="4算法思想">4、算法思想</h2>
+<p>​		如图所示，我们将二进制编码的结果填写到空间中，当将空间划分为四块的时候，编码的顺序分别是左下角00，左上角01，右下角10，右上角11，也就是类似于Z的曲线。</p>
+<p>​		当我们递归的将各个块分解成更小的子块时，编码的顺序是自相似的（分形），每个子块也形成Z曲线，这种类型的曲线被称为Peano空间填充曲线。</p>
+<blockquote>
+<p>Peano空间曲线的优点：将二维空间转换成了一维曲线（事实上是分形堆）。</p>
+<p>Peano空间曲线的特点：对大部分而言，编码相似距离也相近，但Peano空间填充曲线最大的缺点就是突变性，有些编码相邻却相差很远。</p>
+</blockquote>
+<h1 id="四具体实现">四、具体实现</h1>
+<h2 id="1编码">1、编码</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">3</span><span class="o">*</span><span class="n">4</span><span class="w">  </span><span class="c1">//经纬度单独编码长度相乘</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//base32编码的字符数组。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">char</span><span class="o">[]</span><span class="w"> </span><span class="n">digits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="sc">&#39;0&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;2&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;3&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;4&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;5&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;6&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;7&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;8&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="sc">&#39;9&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;b&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;c&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;d&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;e&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;f&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;g&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;h&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;j&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;k&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;m&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;p&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="sc">&#39;q&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;r&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;s&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;t&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;u&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;v&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;w&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;x&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;y&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;z&#39;</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//先通过二分法去根据数据的区间，将经纬度转0，1数字组合</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">encode</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="kt">double</span><span class="w"> </span><span class="n">lon</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">//给定区间，给定经纬度，转成二进制表示数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">BitSet</span><span class="w"> </span><span class="n">latbits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getBites</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span><span class="o">-</span><span class="n">90</span><span class="p">,</span><span class="n">90</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">BitSet</span><span class="w"> </span><span class="n">lonbits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getBites</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span><span class="o">-</span><span class="n">180</span><span class="p">,</span><span class="n">180</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">//将BitSet记录的数据转成二进制的形式</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">//同时经纬度BitSet交叉转换</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">StringBuffer</span><span class="w"> </span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StringBuffer</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">number</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">buffer</span><span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="n">lonbits</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">?</span><span class="sc">&#39;1&#39;</span><span class="p">:</span><span class="sc">&#39;0&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="n">buffer</span><span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="n">latbits</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">?</span><span class="sc">&#39;1&#39;</span><span class="p">:</span><span class="sc">&#39;0&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">//将二进制编码进行base32经纬度编码转换</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">String</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">base32</span><span class="p">(</span><span class="n">Long</span><span class="p">.</span><span class="na">parseLong</span><span class="p">(</span><span class="n">buffer</span><span class="p">.</span><span class="na">toString</span><span class="p">(),</span><span class="n">2</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">code</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//根据经纬度范围，获取对应的二进制数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="n">BiteSet</span><span class="w"> </span><span class="nf">getBites</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="kt">double</span><span class="w"> </span><span class="n">floor</span><span class="p">,</span><span class="kt">double</span><span class="w"> </span><span class="n">ceiling</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">BitSet</span><span class="w"> </span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BitSet</span><span class="p">(</span><span class="n">number</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">number</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">mid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">floor</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ceiling</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">2</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//通过BitSet存值，将处于经纬度处于正区间的下标记录在BitSet中</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">lat</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">mid</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">buffer</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">i</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">floor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mid</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="k">else</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">celing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mid</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">buffer</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//将经纬度合并之后的数进行base32编码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">base32</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="n">i</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kt">char</span><span class="o">[]</span><span class="w"> </span><span class="n">buf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">char</span><span class="o">[</span><span class="n">65</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">charPos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">64</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kt">boolean</span><span class="w"> </span><span class="n">negative</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">0</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">negative</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">//主要思想就是先将二进制数转三十二进制，然后通过这个数检索编码下标</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="o">-</span><span class="n">32</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">buf</span><span class="o">[</span><span class="n">charPos</span><span class="o">--]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">digits</span><span class="o">[</span><span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="o">-</span><span class="p">(</span><span class="n">i</span><span class="o">%</span><span class="n">32</span><span class="p">))</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">i</span><span class="o">/=</span><span class="n">32</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">buf</span><span class="o">[</span><span class="n">charPos</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">digits</span><span class="o">[</span><span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="o">-</span><span class="n">i</span><span class="p">)</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="n">negative</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">buf</span><span class="o">[--</span><span class="n">charPos</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;-&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="n">charPos</span><span class="p">,(</span><span class="n">65</span><span class="o">-</span><span class="n">charPos</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="2获取范围geohash编码">2、获取范围geoHash编码</h2>
+<p>​		根据传入的左上和右下的点，外接一个盒模型获取范围内的geoHash。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @descirption: 根据传入的最左最下点和最上最右点获取指定范围内的geoHash集合
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param maxLat  左上纬度
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param minLng  左上经度
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param minLat  右下经度
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param maxLng  右下纬度
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param precision 精度
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author: chengborong
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @time 2021/09/02
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">HashSet</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getGeoHashByFence</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">maxLat</span><span class="p">,</span><span class="kt">double</span><span class="w"> </span><span class="n">minLat</span><span class="p">,</span><span class="kt">double</span><span class="w"> </span><span class="n">maxLng</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="n">precision</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">//通过矩形的左下角构建一个精度为precision的geoHash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">GeoHash</span><span class="w"> </span><span class="n">southWestCorner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GeoHash</span><span class="p">.</span><span class="na">withCharacterPrecision</span><span class="p">(</span><span class="n">minLat</span><span class="p">,</span><span class="n">minLng</span><span class="p">,</span><span class="n">precision</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">//通过矩形右上角构建一个精度为precision的geoHash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">GeoHash</span><span class="w"> </span><span class="n">northEastCorner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GeoHash</span><span class="p">.</span><span class="na">withCharacterPrecision</span><span class="p">(</span><span class="n">maxLat</span><span class="p">,</span><span class="n">maxLng</span><span class="p">,</span><span class="n">precision</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">//使用这两个geoHash构建一个外接盒模型</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">TwoGeoHashBoundingBox</span><span class="w"> </span><span class="n">twoGeoHashBoundingBox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TwoGeoHashBoundingBox</span><span class="p">(</span><span class="n">southWestCorner</span><span class="p">,</span><span class="w"> </span><span class="n">northEastCorner</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">//获得盒模型中的迭代器，遍历盒中的所有geoHash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">HashSet</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HashSet</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">BoundingBoxGeoHashIterator</span><span class="w"> </span><span class="n">boundingBoxGeoHashIterator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BoundingBoxGeoHashIterator</span><span class="p">(</span><span class="n">twoGeoHashBoundingBox</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">while</span><span class="p">(</span><span class="n">boundingBoxGeoHashIterator</span><span class="p">.</span><span class="na">hasNext</span><span class="p">()){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">GeoHash</span><span class="w"> </span><span class="n">geoHash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boudingBoxGeoHashIterator</span><span class="p">.</span><span class="na">next</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">set</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">geoHash</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">set</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="3经纬度点到线距离">3、经纬度点到线距离</h2>
+<p>​		整体思想就是根据传入的经纬度点和经纬度线构成一个三角形，根据角度信息，计算定点到底边的最短距离。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @descirption: 求经纬度点到经纬度线段最短距离
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param PAx 线段点经度
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param PAy 线段点纬度
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param PBx 线段点经度
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param PBy 线段点纬度
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param PCx 普通点经度
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param PCy 普通点纬度
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author: chengborong
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @time 2021/09/02
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">GetNearestDistance</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">PAx</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">PAy</span><span class="p">,</span><span class="kt">double</span><span class="w"> </span><span class="n">PBx</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">PBy</span><span class="p">,</span><span class="kt">double</span><span class="w"> </span><span class="n">PCx</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">PCy</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">//求出三角形三条边的距离</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getDistanceBtwP</span><span class="p">(</span><span class="n">PAy</span><span class="p">,</span><span class="n">PAx</span><span class="p">,</span><span class="n">PBy</span><span class="p">,</span><span class="n">PBx</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getDistanceBtwP</span><span class="p">(</span><span class="n">PBy</span><span class="p">,</span><span class="n">PBx</span><span class="p">,</span><span class="n">PCy</span><span class="p">,</span><span class="n">PCX</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getDistanceBtwP</span><span class="p">(</span><span class="n">PAy</span><span class="p">,</span><span class="n">PAx</span><span class="p">,</span><span class="n">PCy</span><span class="p">,</span><span class="n">PCX</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c1">//根据顶点角的大小，判断最短距离</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="n">b</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">c</span><span class="o">*</span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">c</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">c</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">b</span><span class="o">*</span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">+</span><span class="n">c</span><span class="p">)</span><span class="o">/</span><span class="n">2</span><span class="p">;</span><span class="c1">//周长的一半</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sqrt</span><span class="p">(</span><span class="n">l</span><span class="o">*</span><span class="p">(</span><span class="n">l</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">l</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">l</span><span class="o">-</span><span class="n">c</span><span class="p">));</span><span class="c1">//海伦公式求面积</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">2</span><span class="o">*</span><span class="n">s</span><span class="o">/</span><span class="n">a</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">*	根据传入的点计算两个点之间的距离
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">getDistanceBtwP</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">LonA</span><span class="p">,</span><span class="kt">double</span><span class="w"> </span><span class="n">LatA</span><span class="p">,</span><span class="kt">double</span><span class="w"> </span><span class="n">LonB</span><span class="p">,</span><span class="kt">double</span><span class="w"> </span><span class="n">LatB</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">radLng1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LatA</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">PI</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">180</span><span class="p">.</span><span class="na">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">radLng2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LatB</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">PI</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">180</span><span class="p">.</span><span class="na">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">radLng1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">radLng2</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">LonA</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">LonB</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">PI</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">180</span><span class="p">.</span><span class="na">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">asin</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="na">sqrt</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="na">pow</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="n">2</span><span class="p">),</span><span class="n">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">radLng1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">radLng2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">pow</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="n">2</span><span class="p">),</span><span class="n">2</span><span class="p">)))</span><span class="o">*</span><span class="n">6378</span><span class="p">.</span><span class="na">137</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

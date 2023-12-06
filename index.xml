@@ -17,17 +17,17 @@
     </item>
     <item>
       <title></title>
-      <link>https://borongcheng.github.io/posts/druid%E9%85%8D%E7%BD%AE/</link>
+      <link>https://borongcheng.github.io/posts/geohash/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://borongcheng.github.io/posts/druid%E9%85%8D%E7%BD%AE/</guid>
-      <description></description>
+      <guid>https://borongcheng.github.io/posts/geohash/</guid>
+      <description>GeoHash 一、定义 ​ 通常我们用经度纬度两个二维坐标点来精准表示一个位置，如果我们需要按位置范围查找，这样就得用遍历的形式，效率不高，所以引入了Geo</description>
     </item>
     <item>
       <title></title>
-      <link>https://borongcheng.github.io/tags/dsl%E9%A2%86%E5%9F%9F%E8%AF%AD%E8%A8%80/</link>
+      <link>https://borongcheng.github.io/tags/gradle/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://borongcheng.github.io/tags/dsl%E9%A2%86%E5%9F%9F%E8%AF%AD%E8%A8%80/</guid>
-      <description>领域语言DSL 一、概述 ​ DSL(Domain Specified Language)领域专用语言。 1、什么是领域专用语言，及其创建背景？ ​ 其基本思想是“求专不求全”，不需要像通用</description>
+      <guid>https://borongcheng.github.io/tags/gradle/</guid>
+      <description>Gradle 一、概述 ​ java是一门世界级主流编程语言，有一款高效易用的项目管理工具是java开发者共同追求的心愿和目标。 先是2000年的Ant，后有</description>
     </item>
   </channel>
 </rss>

@@ -10,10 +10,10 @@
     <atom:link href="https://borongcheng.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
-      <link>https://borongcheng.github.io/posts/druid%E9%85%8D%E7%BD%AE/</link>
+      <link>https://borongcheng.github.io/posts/geohash/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://borongcheng.github.io/posts/druid%E9%85%8D%E7%BD%AE/</guid>
-      <description></description>
+      <guid>https://borongcheng.github.io/posts/geohash/</guid>
+      <description>GeoHash 一、定义 ​ 通常我们用经度纬度两个二维坐标点来精准表示一个位置，如果我们需要按位置范围查找，这样就得用遍历的形式，效率不高，所以引入了Geo</description>
     </item>
   </channel>
 </rss>
