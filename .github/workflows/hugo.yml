@@ -21,9 +21,10 @@ jobs:
           mkdir -p $RUNNER_TOOL_CACHE/hugo/${HUGO_VERSION}-x64
           mv hugo $RUNNER_TOOL_CACHE/hugo/${HUGO_VERSION}-x64/hugo
           rm hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
+          echo "::add-path::$RUNNER_TOOL_CACHE/hugo/${HUGO_VERSION}-x64"
 
       - name: Load environment variables
-        run: source .env
+        run: source ${{ github.workspace }}/.env
 
       - name: Build site
         run: hugo --minify
