@@ -116,3 +116,4 @@ module:
   mounts:
     - source: assets/css
       target: static/css
+publishDir: "public"
