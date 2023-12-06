@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <title> // 笔记网站</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.121.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="borong.cheng" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/public/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://borongcheng.github.io/public/%E9%A6%96%E9%A1%B5%E4%B8%AD%E9%97%B4%E7%9A%84%E5%9B%BE%E7%89%87" /><meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="领域语言DSL 一、概述 ​ DSL(Domain Specified Language)领域专用语言。 1、什么是领域专用语言，及其创建背景？ ​ 其基本思想是“求专不求全”，不需要像通用"/>
+
+    <meta property="og:title" content="" />
+<meta property="og:description" content="领域语言DSL 一、概述 ​ DSL(Domain Specified Language)领域专用语言。 1、什么是领域专用语言，及其创建背景？ ​ 其基本思想是“求专不求全”，不需要像通用" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://borongcheng.github.io/public/tags/dsl%E9%A2%86%E5%9F%9F%E8%AF%AD%E8%A8%80/" /><meta property="og:image" content="https://borongcheng.github.io/public/%E9%A6%96%E9%A1%B5%E4%B8%AD%E9%97%B4%E7%9A%84%E5%9B%BE%E7%89%87" /><meta property="article:section" content="tags" />
+
+<meta property="og:site_name" content="柏荣的博客" />
+
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://borongcheng.github.io/public/"><img class="app-header-avatar" src="/public/avatar.jpg" alt="borong.cheng" /></a>
+      <span class="app-header-title">笔记网站</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/public/posts/">文章</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/public/tags/">标签</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/public/categories/">分类</a>
+      </nav>
+      <p>柏荣的博客</p>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title"></h1>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jan 1, 0001
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h1 id="领域语言dsl">领域语言DSL</h1>
+<h2 id="一概述">一、概述</h2>
+<p>​		DSL(Domain Specified Language)领域专用语言。</p>
+<p>1、什么是领域专用语言，及其创建背景？</p>
+<p>​		其基本思想是“<strong>求专不求全</strong>”，不需要像通用目的语言那样目标范围涵盖一切软件问题，而是针对某一特定问题的计算机语言。</p>
+<p>背景例子：</p>
+<p>​		在需求收集的过程中，如果要成功的构建模型，则需要一种领域专家和构建者都能理解的“共同语言”，但是这种“共同语言”的创建过程没有保证，不能保证在需求收集的过程中，收集到的信息完整的描述了领域活动中所有的业务活动。</p>
+<p>​		如果能够让领域专家通过简单的编程方式描述领域中的所有活动和规则，那么在一定程度上保证描述的完整性。</p>
+<p>2、它的发明解决了什么样的问题？</p>
+<p>​		DSL是为了解决系统（包括软件系统和硬件系统）构建初期，使用者和构建者的语言模型不一致导致的需求收集的困难。</p>
+<h2 id="二常见的dsl">二、常见的DSL</h2>
+<ul>
+<li>软件构建领域的Ant
+<ul>
+<li>Ant：Ant是一个构建工具，它通过自动完成所有的编译代码，运行测试以及打包重新部署的结果等繁琐费力的任务来帮助软件团队开发大程序。</li>
+</ul>
+</li>
+<li>UI设计师的HTML</li>
+<li>硬件设计师的VHDL</li>
+</ul>
+<h2 id="三dsl的特点">三、DSL的特点</h2>
+<ul>
+<li>仅用于专业领域，不能用于其他领域</li>
+<li>表现力有限</li>
+<li>不描述解答域，仅描述问题域</li>
+</ul>
+<h2 id="四dsl与通用编程语言的区别">四、DSL与通用编程语言的区别</h2>
+<ul>
+<li>DSL供非程序员使用，供领域专家使用</li>
+<li>DSL有更高级的抽象，不涉及数据结构的细节</li>
+<li>DSL表现力有限，其只能描述该领域的模型，而通用编程语言能够描述任意模型</li>
+</ul>
+<h2 id="五dsl分类">五、DSL分类</h2>
+<p>要理解DSL分类需要先理解一个概念。“元语言抽象”。</p>
+<p>它是通过一种语言来构建另一种语言，比如java就是构建在C语言之上。</p>
+<p>其中通过什么语言构建，这种语言称为“宿主语言”。</p>
+<p>根据是否从宿主语言构建而来，DSL分为：</p>
+<ul>
+<li>内部DSL（从一种宿主语言构建而来）</li>
+<li>外部DSL（从零开始构建的语言，需要实现语法分析器）</li>
+<li>还有一种属于外部DSL的“非文本DSL”，即尽量使用图形化表述。比如JetBrains的MPS</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">我们通常使用的框架就是一种内部的DSL</span><span class="err">，</span><span class="n">比如Rails框架就是基于Ruby的用于Web开发领域的内部DSL</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="六如何构建dsl">六、如何构建DSL</h2>
+<p>构建DSL要满足三个原则：</p>
+<ul>
+<li>能够完整的描述领域</li>
+<li>简单易用</li>
+<li>隐藏细节</li>
+</ul>
+<p>DSL的构建难度比较大，不建议从零开始构建。建议使用比较完善的构建。</p>
+<h2 id="七背后的概念">七、背后的概念</h2>
+<p>​		DSL是在需求分析阶段为了解决需求收集的过程中需求描述方（遇到问题的人/问题描述者）和解决方案提供者（构建者）之间相互理解困难设计的专门工具；</p>
+<p>​		领域专家使用专业术语来对问题进行描述，模型构建者通过对领域活动及其问题的理解，加上对技术解决方案的理解，提出解决方案模型。</p>
+<p>​		该模型最终映射到技术方案中，这个过程中的活动称为“领域分析/领域建模”，目的是确定并理解领域中的重要元素、过程及其间的关系。</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
