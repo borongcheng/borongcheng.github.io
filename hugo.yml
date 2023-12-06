@@ -112,3 +112,7 @@ params:
   images:
     - "首页中间的图片"
   author: "borong.cheng"
+module:
+  mounts:
+    - source: assets/css
+      target: static/css
