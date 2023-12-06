@@ -14,16 +14,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo-setup@v2
-        with:
-          hugo-version: v0.121.0
-          extended: true
-
-      - name: Build site
-        run: hugo --minify
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+        run: |
+          HUGO_VERSION="0.121.0"
+          wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
+          tar -xf hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
+          mkdir -p $RUNNER_TOOL_CACHE/hugo/${HUGO_VERSION}-x64
+          mv hugo $RUNNER_TOOL_CACHE/hugo/${HUGO_VERSION}-x64/hugo
+          echo "::add-path::$RUNNER_TOOL_CACHE/hugo/${HUGO_VERSION}-x64"
+          rm hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
