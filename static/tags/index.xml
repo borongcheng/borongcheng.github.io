@@ -7,21 +7,6 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>私有财产</copyright>
-    <lastBuildDate>Sun, 25 Oct 2015 08:36:54 -0700</lastBuildDate>
     <atom:link href="https://borongcheng.github.io/static/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Gradle</title>
-      <link>https://borongcheng.github.io/static/tags/gradle/</link>
-      <pubDate>Sun, 25 Oct 2015 08:36:54 -0700</pubDate>
-      <guid>https://borongcheng.github.io/static/tags/gradle/</guid>
-      <description>Gradle 一、概述 ​ java是一门世界级主流编程语言，有一款高效易用的项目管理工具是java开发者共同追求的心愿和目标。 先是2000年的Ant，后有</description>
-    </item>
-    <item>
-      <title></title>
-      <link>https://borongcheng.github.io/static/tags/mycat%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://borongcheng.github.io/static/tags/mycat%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/</guid>
-      <description>Mycat 一、读写分离介绍 ​ 随着应用的访问量并发量的增加，应用的读写分离是很有必要的。 应用读写分离至少有两种方法： 应用本身通过代码实现，例如基于动态</description>
-    </item>
   </channel>
 </rss>
