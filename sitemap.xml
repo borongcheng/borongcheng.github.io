@@ -2,22 +2,29 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://borongcheng.github.io/categories/aop%E5%88%87%E9%9D%A2/</loc>
+    <loc>https://borongcheng.github.io/categories/</loc>
+    <lastmod>2015-10-25T08:36:54-07:00</lastmod>
   </url><url>
     <loc>https://borongcheng.github.io/posts/geohash/</loc>
+    <lastmod>2015-10-25T08:36:54-07:00</lastmod>
   </url><url>
     <loc>https://borongcheng.github.io/tags/gradle/</loc>
-  </url><url>
-    <loc>https://borongcheng.github.io/categories/</loc>
-  </url><url>
-    <loc>https://borongcheng.github.io/categories/</loc>
+    <lastmod>2015-10-25T08:36:54-07:00</lastmod>
   </url><url>
     <loc>https://borongcheng.github.io/posts/</loc>
+    <lastmod>2015-10-25T08:36:54-07:00</lastmod>
+  </url><url>
+    <loc>https://borongcheng.github.io/categories/aop%E5%88%87%E9%9D%A2/</loc>
+    <lastmod>2015-10-25T08:36:54-07:00</lastmod>
   </url><url>
     <loc>https://borongcheng.github.io/tags/</loc>
-  </url><url>
-    <loc>https://borongcheng.github.io/tags/</loc>
+    <lastmod>2015-10-25T08:36:54-07:00</lastmod>
   </url><url>
     <loc>https://borongcheng.github.io/</loc>
+    <lastmod>2015-10-25T08:36:54-07:00</lastmod>
+  </url><url>
+    <loc>https://borongcheng.github.io/categories/</loc>
+  </url><url>
+    <loc>https://borongcheng.github.io/tags/</loc>
   </url>
 </urlset>
