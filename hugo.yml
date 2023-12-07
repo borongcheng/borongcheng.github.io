@@ -34,36 +34,41 @@ enableEmoji: true
 # 菜单配置
 menu:
   main:
-    - name: Home
-      url: /
+    - name: "Home"
+      url: "/"
       weight: 1
     - name: "专业"
-      url: /specialized/
+      url: "/specialized/"
       weight: 2
-      sub:
-        - name: "JAVA"
-          url: /specialized/java/
-          weight: 1
-          sub:
-            - name: "基础"
-              url: /specialized/java/base/
-              weight: 1
-            - name: "集合"
-              url: /specialized/java/collection/
-              weight: 2
-        - name: "数据库"
-          url: /specialized/database/
-          weight: 2
-          sub:
-            - name: "关系型数据库"
-              url: /specialized/database/relational/
-              weight: 1
-            - name: "非关系型数据库"
-              url: /specialized/database/non-relational
-              weight : 2
-            - name: "缓存数据库"
-              url: /specialized/database/cache/
-              weight: 3
+    - name: "JAVA"
+      url: "/specialized/java/"
+      weight: 1
+      parent: "专业"
+    - name: "基础"
+      url: "/specialized/java/base/"
+      weight: 1
+      parent: "JAVA"
+    - name: "集合"
+      url: "/specialized/java/collection/"
+      weight: 2
+      parent: "JAVA"
+    - name: "数据库"
+      url: "/specialized/database/"
+      weight: 2
+      parent: "专业"
+    - name: "关系型数据库"
+      url: "/specialized/database/relational/"
+      weight: 1
+      parent: "数据库"
+    - name: "非关系型数据库"
+      url: "/specialized/database/non-relational/"
+      weight: 2
+      parent: "数据库"
+    - name: "缓存数据库"
+      url: "/specialized/database/cache/"
+      weight: 3
+      parent: "数据库"
+
 
 # Hugo 解析文档的配置
 markup:
@@ -109,7 +114,7 @@ params:
   # ["sha256", "sha384", "sha512", "md5"]
   fingerprint: "sha256"
   # LoveIt 新增 | 0.2.0 日期格式
-  dateFormat: "2006-01-02"
+  dateFormat: "2023-12-07"
   # 网站标题, 用于 Open Graph 和 Twitter Cards
   title: "柏荣的博客"
   # 网站描述, 用于 RSS, SEO, Open Graph 和 Twitter Cards
