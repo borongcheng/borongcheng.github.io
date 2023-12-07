@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <title> // 笔记网站</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.121.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="borong.cheng" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/static/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://borongcheng.github.io/static/%E9%A6%96%E9%A1%B5%E4%B8%AD%E9%97%B4%E7%9A%84%E5%9B%BE%E7%89%87" /><meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="Mycat 一、读写分离介绍 ​ 随着应用的访问量并发量的增加，应用的读写分离是很有必要的。 应用读写分离至少有两种方法： 应用本身通过代码实现，例如基于动态"/>
+
+    <meta property="og:title" content="" />
+<meta property="og:description" content="Mycat 一、读写分离介绍 ​ 随着应用的访问量并发量的增加，应用的读写分离是很有必要的。 应用读写分离至少有两种方法： 应用本身通过代码实现，例如基于动态" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://borongcheng.github.io/static/tags/mycat%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/" /><meta property="og:image" content="https://borongcheng.github.io/static/%E9%A6%96%E9%A1%B5%E4%B8%AD%E9%97%B4%E7%9A%84%E5%9B%BE%E7%89%87" /><meta property="article:section" content="tags" />
+
+<meta property="og:site_name" content="柏荣的博客" />
+
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://borongcheng.github.io/static"><img class="app-header-avatar" src="/static/avatar.jpg" alt="borong.cheng" /></a>
+      <span class="app-header-title">笔记网站</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/static/posts/">文章</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/static/tags/">标签</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/static/categories/">分类</a>
+      </nav>
+      <p>柏荣的博客</p>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title"></h1>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jan 1, 0001
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h1 id="mycat">Mycat</h1>
+<h1 id="一读写分离介绍">一、读写分离介绍</h1>
+<p>​		随着应用的访问量并发量的增加，应用的读写分离是很有必要的。</p>
+<p>应用读写分离至少有两种方法：</p>
+<ul>
+<li>应用本身通过代码实现，例如基于动态数据源，AOP的原理来实现写操作时用主数据库，读操作时用从数据库。</li>
+<li>通过中间件的方式实现，例如通过Mycat，即中间件会分析对应的SQL，写操作时会连接主数据库，读操作时连接从数据库。</li>
+</ul>
+<h1 id="二mycat">二、Mycat</h1>
+<h2 id="1介绍">1、介绍</h2>
+<p>​		Mycat  是一个强大的数据库中间件，不仅仅可以用作读写分离，以及分表分库，容灾备份，而且可以用于多租户应用开发、云平台基础设施，让你的架构具备很强的适应性和灵活性，借助于即将发布的Mycat 智能优化模块，系统的数据访问瓶颈和热点一目了然，根据这些统计分析数据，你可以自动或手工调整后端存储，将不同的表映射到不同存储引擎上，而整个应用的代码一行也不用改变。</p>
+<h2 id="2原理">2、原理</h2>
+<p>​		Mycat 的原理中最重要的一个动词是“拦截”，它拦截了用户发送过来的SQL语句，首先对SQL语句做了写特定的分析：如分片分析、路由分析、读写分析、缓存分析等等，然后将此SQL发往后端的真实数据库，并将返回的结果做适当的处理，最终再返回给用户。</p>
+<h2 id="3下载安装">3、下载安装</h2>
+<p>1、从mycat官网下载linux版本的mycat</p>
+<p><a href="http://www.mycat.org.cn/">http://www.mycat.org.cn/</a></p>
+<p>2、上传到服务器并解压（默认/opt目录）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">tar</span><span class="w"> </span><span class="o">-</span><span class="n">zxvf</span><span class="w"> </span><span class="n">Mycat</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">1</span><span class="p">.</span><span class="na">6</span><span class="p">.</span><span class="na">7</span><span class="p">.</span><span class="na">6</span><span class="o">-</span><span class="n">test</span><span class="o">-</span><span class="n">20201104174609</span><span class="o">-</span><span class="n">linux</span><span class="p">.</span><span class="na">tar</span><span class="p">.</span><span class="na">gz</span><span class="w"> </span><span class="n">mycat</span><span class="o">/</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>3、将文件拷贝到（usr/local目录）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">cp</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="n">mycat</span><span class="o">/</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>4、到mycat的bin目录下操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">./mycat start   <span class="c1">#启动</span>
+</span></span><span class="line"><span class="cl">./mycat status  <span class="c1">#查看启动状态</span>
+</span></span><span class="line"><span class="cl">./mycat restart <span class="c1">#重启</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="4配置文件">4、配置文件</h2>
+<p>配置文件放置于mycat的conf目录下</p>
+<p>1、schema.xml</p>
+<p>​		定义逻辑库，表、分片节点等内容。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE mycat:schema SYSTEM &#34;schema.dtd&#34;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;mycat:schema</span> <span class="na">xmlns:mycat=</span><span class="s">&#34;http://io.mycat/&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;schema</span> <span class="na">name=</span><span class="s">&#34;TESTDB&#34;</span> <span class="na">checkSQLschema=</span><span class="s">&#34;true&#34;</span> <span class="na">sqlMaxLimit=</span><span class="s">&#34;100&#34;</span> <span class="na">randomDataNode=</span><span class="s">&#34;dn1&#34;</span> <span class="na">dataNode=</span><span class="s">&#34;dn1&#34;</span> <span class="nt">&gt;</span>//指定节点
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;/schema&gt;</span>
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;dataNode</span> <span class="na">name=</span><span class="s">&#34;dn1&#34;</span> <span class="na">dataHost=</span><span class="s">&#34;host1&#34;</span> <span class="na">database=</span><span class="s">&#34;test&#34;</span> <span class="nt">/&gt;</span>  //读写分离的指定库名
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;dataHost</span> <span class="na">name=</span><span class="s">&#34;host1&#34;</span> <span class="na">maxCon=</span><span class="s">&#34;1000&#34;</span> <span class="na">minCon=</span><span class="s">&#34;10&#34;</span> <span class="na">balance=</span><span class="s">&#34;0&#34;</span>
+</span></span><span class="line"><span class="cl">     <span class="na">writeType=</span><span class="s">&#34;0&#34;</span> <span class="na">dbType=</span><span class="s">&#34;mysql&#34;</span> <span class="na">dbDriver=</span><span class="s">&#34;jdbc&#34;</span> <span class="na">switchType=</span><span class="s">&#34;1&#34;</span>  <span class="na">slaveThreshold=</span><span class="s">&#34;100&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;heartbeat&gt;</span>select user()<span class="nt">&lt;/heartbeat&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- can have multi write hosts --&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;writeHost</span> <span class="na">host=</span><span class="s">&#34;hostM1&#34;</span> <span class="na">url=</span><span class="s">&#34;jdbc:mysql://172.15.2.55:3306&#34;</span> <span class="na">user=</span><span class="s">&#34;root&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">password=</span><span class="s">&#34;saimo888&#34;</span><span class="nt">&gt;</span>//写表
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;readHost</span> <span class="na">host=</span><span class="s">&#34;hostS1&#34;</span> <span class="na">url=</span><span class="s">&#34;jdbc:mysql://172.15.2.67:3306&#34;</span> <span class="na">user=</span><span class="s">&#34;root&#34;</span> <span class="na">password=</span><span class="s">&#34;saimo888&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">	//读表
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/writeHost&gt;</span>
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;/dataHost&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/mycat:schema&gt;</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>读写分离负载均衡策略：</p>
+<!-- raw HTML omitted -->
+<p>2、rule.xml</p>
+<pre><code>	定义分片规则
+</code></pre>
+<p>3、server.xml</p>
+<pre><code>	定义用户以及系统相关变量，如端口等。
+</code></pre>
+<p>4、linux启动mycat</p>
+<blockquote>
+<p>在 /mycat/bin/目录下</p>
+<p>1、控制台启动  打印日志信息</p>
+<p>./mycat console</p>
+<p>2、普通启动</p>
+<p>./mycat start</p>
+</blockquote>
+<h1 id="三mysql配置主从数据库">三、MySQL配置主从数据库</h1>
+<h2 id="1配置主数据库">1、配置主数据库</h2>
+<p>1、修改配置文件 my.cnf</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">[</span><span class="n">mysql</span><span class="o">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> </span><span class="n">同一局域网内注意要唯一</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">server</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">100</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> </span><span class="n">开启二进制日志功能</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">log</span><span class="o">-</span><span class="n">bin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mysql</span><span class="o">-</span><span class="n">bin</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">#</span><span class="w"> </span><span class="n">设置不需要复制的数据库</span><span class="w"> </span><span class="n">系统库</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">binlog</span><span class="o">-</span><span class="n">ignore</span><span class="o">-</span><span class="n">db</span><span class="o">=</span><span class="n">mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">binlog</span><span class="o">-</span><span class="n">ingore</span><span class="o">-</span><span class="n">db</span><span class="o">=</span><span class="n">information_schema</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">#</span><span class="w"> </span><span class="n">设置需要复制的库</span><span class="w"> </span><span class="n">binlog</span><span class="o">-</span><span class="k">do</span><span class="o">-</span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">复制库的名字</span><span class="w"> 
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>2、创建数据slave用户</p>
+<p>​		主要用户同步主从数据库数据，，授予用户slave REPLICATION SLAVE权限和REPLICATION CLIENT权限</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">1</span><span class="err">、</span><span class="n">docker</span><span class="w"> </span><span class="n">exec</span><span class="w"> </span><span class="o">-</span><span class="n">it</span><span class="w"> </span><span class="n">mysql</span><span class="o">-</span><span class="n">master</span><span class="w"> </span><span class="n">bash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">2</span><span class="err">、</span><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">uroot</span><span class="w"> </span><span class="o">-</span><span class="n">p123456</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">3</span><span class="err">、</span><span class="n">use</span><span class="w"> </span><span class="n">mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">4</span><span class="err">、</span><span class="n">CREATE</span><span class="w"> </span><span class="n">USER</span><span class="w"> </span><span class="err">&#39;</span><span class="n">slave</span><span class="sc">&#39;@&#39;</span><span class="o">%</span><span class="err">&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="n">BY</span><span class="w"> </span><span class="err">&#39;</span><span class="n">123456</span><span class="err">&#39;</span><span class="p">;</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">5</span><span class="err">、</span><span class="n">GRANT</span><span class="w"> </span><span class="n">REPLICATION</span><span class="w"> </span><span class="n">SLAVE</span><span class="p">,</span><span class="w"> </span><span class="n">REPLICATION</span><span class="w"> </span><span class="n">CLIENT</span><span class="w"> </span><span class="n">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="n">TO</span><span class="w"> </span><span class="err">&#39;</span><span class="n">slave</span><span class="sc">&#39;@&#39;</span><span class="o">%</span><span class="err">&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">6</span><span class="err">、</span><span class="n">flush</span><span class="w"> </span><span class="n">privileges</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>​</p>
+<h2 id="2配置从数据库">2、配置从数据库</h2>
+<p>1、修改配置文件my.cnf</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="err">##</span><span class="w"> </span><span class="n">设置server_id</span><span class="err">，</span><span class="n">注意要唯一</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">server_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> </span><span class="n">开启二进制日志功能</span><span class="p">,</span><span class="n">以备slave作为其他slave的master时使用</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">log</span><span class="o">-</span><span class="n">bin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mysql</span><span class="o">-</span><span class="n">slave</span><span class="o">-</span><span class="n">bin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> </span><span class="n">relay_log</span><span class="w"> </span><span class="n">配置中继日志</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">relay_log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">edu</span><span class="o">-</span><span class="n">mysql</span><span class="o">-</span><span class="n">relay</span><span class="o">-</span><span class="n">bin</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="3建立主从联系">3、建立主从联系</h2>
+<p>1、进入master容器，并进入mysql</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">1</span><span class="err">、</span><span class="n">docker</span><span class="w"> </span><span class="n">exec</span><span class="w"> </span><span class="o">-</span><span class="n">it</span><span class="w"> </span><span class="n">mysql</span><span class="o">-</span><span class="n">master</span><span class="w"> </span><span class="n">bash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">2</span><span class="err">、</span><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">uroot</span><span class="w"> </span><span class="o">-</span><span class="n">p123456</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">3</span><span class="err">、</span><span class="n">show</span><span class="w"> </span><span class="n">master</span><span class="w"> </span><span class="n">status</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">记录File字段和Position字段的数据</span><span class="w">  
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>2、进入slave容器，并进入mysql</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">1</span><span class="err">、</span><span class="n">docker</span><span class="w"> </span><span class="n">exec</span><span class="w"> </span><span class="o">-</span><span class="n">it</span><span class="w"> </span><span class="n">mysql</span><span class="o">-</span><span class="n">master</span><span class="w"> </span><span class="n">bash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">2</span><span class="err">、</span><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">uroot</span><span class="w"> </span><span class="o">-</span><span class="n">p123456</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">3</span><span class="err">、</span><span class="n">stop</span><span class="w"> </span><span class="n">slave</span><span class="w"> </span><span class="c1">//停止原有的salve  </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">4</span><span class="err">、</span><span class="n">change</span><span class="w"> </span><span class="n">master</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">master_host</span><span class="o">=</span><span class="err">&#39;</span><span class="n">172</span><span class="p">.</span><span class="na">17</span><span class="p">.</span><span class="na">0</span><span class="p">.</span><span class="na">2</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//master的地址，是指容器的独立服务器ip，                </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//docker inspect 容器id   查询到networksetting 中的ipaddress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">master_user</span><span class="o">=</span><span class="err">&#39;</span><span class="n">slave</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">//用户同步数据的用户</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">master_password</span><span class="o">=</span><span class="err">&#39;</span><span class="n">123456</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">//密码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">master_port</span><span class="o">=</span><span class="n">3306</span><span class="p">,</span><span class="w"> </span><span class="c1">//master的端口号，指的是服务器的端口号</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">master_log_file</span><span class="o">=</span><span class="err">&#39;</span><span class="n">mysql</span><span class="o">-</span><span class="n">bin</span><span class="p">.</span><span class="na">000001</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">//指定Slave从哪个日志开始复制数据，即上文中提到的File字段</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">master_log_pos</span><span class="o">=</span><span class="w"> </span><span class="n">2830</span><span class="p">,</span><span class="c1">//从哪个position开始读，上文中提到的position字段的值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">master_connect_retry</span><span class="o">=</span><span class="n">30</span><span class="p">;</span><span class="c1">//如果连接失败，重试的时间间隔，单位是秒，默认60</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">5</span><span class="err">、</span><span class="n">start</span><span class="w"> </span><span class="n">slave</span><span class="w">  </span><span class="c1">//启动salve</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="4进入mycat操作">4、进入mycat操作</h2>
+<p>1、进入mycat</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">1</span><span class="err">、</span><span class="n">docker</span><span class="w"> </span><span class="n">exec</span><span class="w"> </span><span class="o">-</span><span class="n">it</span><span class="w"> </span><span class="n">mysql</span><span class="o">-</span><span class="n">master</span><span class="w"> </span><span class="n">bash</span><span class="w">    </span><span class="c1">//进入mysql环境</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">2</span><span class="err">、</span><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">umycat</span><span class="w"> </span><span class="o">-</span><span class="n">p1234567</span><span class="w"> </span><span class="o">-</span><span class="n">h</span><span class="w"> </span><span class="p">(</span><span class="n">mycat所在服务端口号</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="n">P</span><span class="w"> </span><span class="n">8066</span><span class="w">   
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
