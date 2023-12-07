@@ -34,4 +34,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.HUGO_BOOK }}
-          publish_dir: ./
+          publish_dir: ./static
