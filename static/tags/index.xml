@@ -7,6 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>私有财产</copyright>
+    <lastBuildDate>Thu, 07 Dec 2023 16:52:54 +0000</lastBuildDate>
     <atom:link href="https://borongcheng.github.io/static/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>database</title>
+      <link>https://borongcheng.github.io/static/tags/database/</link>
+      <pubDate>Thu, 07 Dec 2023 16:52:54 +0000</pubDate>
+      <guid>https://borongcheng.github.io/static/tags/database/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>JAVA</title>
+      <link>https://borongcheng.github.io/static/tags/java/</link>
+      <pubDate>Thu, 07 Dec 2023 16:52:54 +0000</pubDate>
+      <guid>https://borongcheng.github.io/static/tags/java/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>生活</title>
+      <link>https://borongcheng.github.io/static/tags/%E7%94%9F%E6%B4%BB/</link>
+      <pubDate>Thu, 07 Dec 2023 16:52:54 +0000</pubDate>
+      <guid>https://borongcheng.github.io/static/tags/%E7%94%9F%E6%B4%BB/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

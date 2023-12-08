@@ -23,13 +23,19 @@ copyright: "私有财产"
 # 是否使用robots.txt
 enableRobotsTXT: true
 # 是否使用git信息
-#enableGitInfo: true
+enableGitInfo: true
 # 是否使用emoji代码
 enableEmoji: true
 
-
+outputs:
+  home:
+    - HTML
+    - RSS
 # 作者配置
-
+taxonomies:
+  tag: "tags"
+  category: "categories"
+  series: "series"
 
 # 菜单配置
 menu:
@@ -37,37 +43,47 @@ menu:
     - name: "Home"
       url: "/"
       weight: 1
-    - name: "专业"
-      url: "/specialized/"
+      identifier: "home"
+
+    - name: "类别"
+      url: "/categories/"
       weight: 2
-    - name: "JAVA"
-      url: "/specialized/java/"
-      weight: 1
-      parent: "专业"
-    - name: "基础"
-      url: "/specialized/java/base/"
-      weight: 1
-      parent: "JAVA"
-    - name: "集合"
-      url: "/specialized/java/collection/"
-      weight: 2
-      parent: "JAVA"
-    - name: "数据库"
-      url: "/specialized/database/"
-      weight: 2
-      parent: "专业"
-    - name: "关系型数据库"
-      url: "/specialized/database/relational/"
-      weight: 1
-      parent: "数据库"
-    - name: "非关系型数据库"
-      url: "/specialized/database/non-relational/"
-      weight: 2
-      parent: "数据库"
-    - name: "缓存数据库"
-      url: "/specialized/database/cache/"
+      identifier: "category"
+    - name: "Tags"
+      url: "/tags/"
       weight: 3
-      parent: "数据库"
+      identifier: "tag"
+
+#    - name: "JAVA"
+#      url: "/specialized/java/"
+#      weight: 1
+#      parent: "专业"
+#      identifier: "JAVA"
+#    - name: "数据库"
+#      url: "/specialized/database/"
+#      weight: 2
+#      parent: "专业"
+#      identifier: "数据库"
+#
+#    - name: "集合"
+#      url: "/specialized/java/collection/"
+#      weight: 1
+#      parent: "JAVA"
+#    - name: "关系型数据库"
+#      url: "/specialized/database/relational/"
+#      weight: 1
+#      identifier: "关系型数据库"
+#      parent: "数据库"
+#    - name: "非关系型数据库"
+#      url: "/specialized/database/non-relational/"
+#      weight: 2
+#      identifier: "非关系型数据库"
+#      parent: "数据库"
+#    - name: "缓存数据库"
+#      url: "/specialized/database/cache/"
+#      weight: 3
+#      identifier: "缓存数据库"
+#      parent: "数据库"
 
 
 # Hugo 解析文档的配置

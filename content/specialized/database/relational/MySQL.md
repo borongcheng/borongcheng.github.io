@@ -1,7 +1,7 @@
 +++
 date = "2023-12-07T16:52:54"
 title = "MySQL"
-
+tags = ["database"]
 +++
 # MySQL
 

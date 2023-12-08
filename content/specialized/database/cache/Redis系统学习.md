@@ -1,7 +1,8 @@
 +++
 date = "2023-12-07T16:52:54"
 title = "Redis系统学习"
-
+tags = ["database"]
+parent = "database"
 +++
 # 										Redis
 

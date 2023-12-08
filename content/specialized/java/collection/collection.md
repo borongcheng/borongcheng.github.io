@@ -1,3 +1,9 @@
++++
+date = "2023-12-07T16:52:54"
+title = "collection"
+tags = ["JAVA"]
+categories = ["专业"]
++++
 # collection
 
 ![image-20201019091357553](D:\笔记图片\image-20201019091357553.png)
