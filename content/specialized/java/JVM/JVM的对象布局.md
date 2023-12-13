@@ -102,11 +102,11 @@ May also be a pointer (with characteristic low bit encoding) to synchronization 
 
 #### 32位虚拟机
 
-![img](%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87/1162587-20200918154115022-312986152.png)
+![img](https://borongcheng.github.io/static/picture/1162587-20200918154115022-312986152.png)
 
 #### 64位虚拟机
 
-![img](../%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87/1162587-20200918154125385-1537793659-20231213172902576.png)
+![img](https://borongcheng.github.io/static/picture/1162587-20200918154125385-1537793659-20231213172902576.png)
 
 * 虽然在不同位数的JVM中，长度不一致，但是基本组成是一致的。
   * 锁标志位(lock)：用于JVM判定对象是否被锁住，以及[锁的膨胀优化](/Users/chengborong/Desktop/笔记文件/锁膨胀.md)
