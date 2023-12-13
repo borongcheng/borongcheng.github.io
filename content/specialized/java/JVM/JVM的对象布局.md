@@ -1,4 +1,4 @@
-
++++
 date = "2023-12-07T16:52:54"
 title = "JVM的对象布局--定义"
 tags = ["JAVA","JVM","并发编程"]
@@ -9,7 +9,7 @@ categories = ["专业","JVM"]
 
 > JVM的设计需要遵循JAVA虚拟机规范，所以在不同的虚拟机上，对象的布局结构基本相同，大小不一定相同。
 
-![20210131165506.png](./static/picture/580757-20210131165507671-713263758.png)
+![20210131165506.png](https://borongcheng.github.io/static/picture/580757-20210131165507671-713263758.png)
 
 # 一、类与对象
 
@@ -19,7 +19,7 @@ categories = ["专业","JVM"]
 
 ​		这就是Java语言跨平台的根本原因。
 
-![20210207102626.png](./static/picture/580757-20210207102628551-303133282-20231210203307350.png)
+![20210207102626.png](https://borongcheng.github.io/static/picture/580757-20210207102628551-303133282-20231210203307350.png)
 
 ​		通过java命令运行class文件，首先会通过类加载器将class文件加载到内存中，加载class文件会为类生成一个klass示例 。
 
@@ -34,7 +34,7 @@ categories = ["专业","JVM"]
 * 结合JVM内存来解读
   * oop 指向内存，就相当于在栈中new一个对象，这个对象指向堆中对象的内存实例。
 
-![img](./static/picture/1162587-20200918154030998-188898614.png)
+![img](https://borongcheng.github.io/static/picture/1162587-20200918154030998-188898614.png)
 
 # 三、对象构成
 
@@ -54,7 +54,7 @@ categories = ["专业","JVM"]
   * 不是必然存在的组成，没有特殊含义，只起占位的作用
   * JVM规范中，给对象分配的内存必须是8个字节的倍数，如果不够，通过对齐填充来补齐。
 
-![img](./static/picture/1162587-20200917170455322-1670500196.png)
+![img](https://borongcheng.github.io/static/picture/1162587-20200917170455322-1670500196.png)
 
 
 
@@ -81,7 +81,7 @@ Includes fundamental information about the heap object's layout, type, GC state,
 
 ​		在数组对象中，它后面跟着数组的长度。	注意Java对象和VM中的对象都有一个公共的头格式。
 
-![img](./static/picture/399ccf65a9b7419aa77d2f111e2af583.png)
+![img](https://borongcheng.github.io/static/picture/399ccf65a9b7419aa77d2f111e2af583.png)
 
 ### 1.1、Mark Word
 
