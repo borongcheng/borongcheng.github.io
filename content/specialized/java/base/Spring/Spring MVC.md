@@ -2,7 +2,6 @@
 date = "2024-08-28T11:52:54"
 title = "Spring MVC"
 tags = ["JAVA","Spring"]
-draft = false
 +++
 # 一、定义
 1、什么是spring mvc？
