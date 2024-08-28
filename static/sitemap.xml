@@ -2,6 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://borongcheng.github.io/static/specialized/java/spring/aop/</loc>
+    <lastmod>2024-08-28T11:52:54+00:00</lastmod>
+  </url><url>
+    <loc>https://borongcheng.github.io/static/specialized/java/spring/core-container/</loc>
+    <lastmod>2024-08-28T11:52:54+00:00</lastmod>
+  </url><url>
+    <loc>https://borongcheng.github.io/static/tags/java/</loc>
+    <lastmod>2024-08-28T11:52:54+00:00</lastmod>
+  </url><url>
+    <loc>https://borongcheng.github.io/static/specialized/</loc>
+    <lastmod>2024-08-28T11:52:54+00:00</lastmod>
+  </url><url>
+    <loc>https://borongcheng.github.io/static/tags/spring/</loc>
+    <lastmod>2024-08-28T11:52:54+00:00</lastmod>
+  </url><url>
+    <loc>https://borongcheng.github.io/static/specialized/java/spring/spring-mvc/</loc>
+    <lastmod>2024-08-28T11:52:54+00:00</lastmod>
+  </url><url>
+    <loc>https://borongcheng.github.io/static/tags/</loc>
+    <lastmod>2024-08-28T11:52:54+00:00</lastmod>
+  </url><url>
+    <loc>https://borongcheng.github.io/static/</loc>
+    <lastmod>2024-08-28T11:52:54+00:00</lastmod>
+  </url><url>
+    <loc>https://borongcheng.github.io/static/specialized/java/spring/transaction/</loc>
+    <lastmod>2024-08-28T11:52:54+00:00</lastmod>
+  </url><url>
     <loc>https://borongcheng.github.io/static/categories/</loc>
     <lastmod>2023-12-08T23:55:44+08:00</lastmod>
   </url><url>
@@ -9,9 +36,6 @@
     <lastmod>2023-12-08T23:55:44+08:00</lastmod>
   </url><url>
     <loc>https://borongcheng.github.io/static/tags/database/</loc>
-    <lastmod>2023-12-08T23:55:44+08:00</lastmod>
-  </url><url>
-    <loc>https://borongcheng.github.io/static/tags/java/</loc>
     <lastmod>2023-12-08T23:55:44+08:00</lastmod>
   </url><url>
     <loc>https://borongcheng.github.io/static/specialized/java/base/%E7%89%9B%E5%AE%A2%E7%BD%91java%E5%9F%BA%E7%A1%80/</loc>
@@ -34,15 +58,6 @@
   </url><url>
     <loc>https://borongcheng.github.io/static/specialized/database/cache/redis%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2023-12-07T16:52:54+00:00</lastmod>
-  </url><url>
-    <loc>https://borongcheng.github.io/static/specialized/</loc>
-    <lastmod>2023-12-08T23:55:44+08:00</lastmod>
-  </url><url>
-    <loc>https://borongcheng.github.io/static/tags/</loc>
-    <lastmod>2023-12-08T23:55:44+08:00</lastmod>
-  </url><url>
-    <loc>https://borongcheng.github.io/static/</loc>
-    <lastmod>2023-12-08T23:55:44+08:00</lastmod>
   </url><url>
     <loc>https://borongcheng.github.io/static/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</loc>
     <lastmod>2023-12-07T16:52:54+00:00</lastmod>

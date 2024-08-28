@@ -7,20 +7,27 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>私有财产</copyright>
-    <lastBuildDate>Thu, 07 Dec 2023 16:52:54 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 28 Aug 2024 11:52:54 +0000</lastBuildDate>
     <atom:link href="https://borongcheng.github.io/static/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JAVA</title>
+      <link>https://borongcheng.github.io/static/tags/java/</link>
+      <pubDate>Wed, 28 Aug 2024 11:52:54 +0000</pubDate>
+      <guid>https://borongcheng.github.io/static/tags/java/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Spring</title>
+      <link>https://borongcheng.github.io/static/tags/spring/</link>
+      <pubDate>Wed, 28 Aug 2024 11:52:54 +0000</pubDate>
+      <guid>https://borongcheng.github.io/static/tags/spring/</guid>
+      <description></description>
+    </item>
     <item>
       <title>database</title>
       <link>https://borongcheng.github.io/static/tags/database/</link>
       <pubDate>Thu, 07 Dec 2023 16:52:54 +0000</pubDate>
       <guid>https://borongcheng.github.io/static/tags/database/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>JAVA</title>
-      <link>https://borongcheng.github.io/static/tags/java/</link>
-      <pubDate>Thu, 07 Dec 2023 16:52:54 +0000</pubDate>
-      <guid>https://borongcheng.github.io/static/tags/java/</guid>
       <description></description>
     </item>
     <item>

@@ -7,8 +7,36 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>私有财产</copyright>
-    <lastBuildDate>Thu, 07 Dec 2023 16:52:54 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 28 Aug 2024 11:52:54 +0000</lastBuildDate>
     <atom:link href="https://borongcheng.github.io/static/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AOP切面</title>
+      <link>https://borongcheng.github.io/static/specialized/java/spring/aop/</link>
+      <pubDate>Wed, 28 Aug 2024 11:52:54 +0000</pubDate>
+      <guid>https://borongcheng.github.io/static/specialized/java/spring/aop/</guid>
+      <description>一、切面 https://www.cnblogs.com/lifullmoon/p/14654795.html 1、什么是AOP？ AspectJ：Aspect-oriented programming is a way of modularizing crosscutting concerns much like object-oriented programming is a way of modularizing common concerns. Spring：Aspect-</description>
+    </item>
+    <item>
+      <title>IOC容器</title>
+      <link>https://borongcheng.github.io/static/specialized/java/spring/core-container/</link>
+      <pubDate>Wed, 28 Aug 2024 11:52:54 +0000</pubDate>
+      <guid>https://borongcheng.github.io/static/specialized/java/spring/core-container/</guid>
+      <description>一、container 容器 （1）、容器简介 1、什么是容器？ 顾名思义，容器时存放物体的，在spring中容器是存放元数据的，也就是bean的实</description>
+    </item>
+    <item>
+      <title>Spring MVC</title>
+      <link>https://borongcheng.github.io/static/specialized/java/spring/spring-mvc/</link>
+      <pubDate>Wed, 28 Aug 2024 11:52:54 +0000</pubDate>
+      <guid>https://borongcheng.github.io/static/specialized/java/spring/spring-mvc/</guid>
+      <description>一、定义 1、什么是spring mvc？ spring mvc是一种web层的mvc框架，用于替代servlet（处理 || 响应请求）； spring mvc是spring体</description>
+    </item>
+    <item>
+      <title>事务</title>
+      <link>https://borongcheng.github.io/static/specialized/java/spring/transaction/</link>
+      <pubDate>Wed, 28 Aug 2024 11:52:54 +0000</pubDate>
+      <guid>https://borongcheng.github.io/static/specialized/java/spring/transaction/</guid>
+      <description>一、定义 1、什么是事务 事务就是一个并发控制单元，要求一次操作序列，要么全部成功要么全部失败。 这些操作要么全部成功，对数据造成影响，要么全部失</description>
+    </item>
     <item>
       <title>collection</title>
       <link>https://borongcheng.github.io/static/specialized/java/collection/collection/</link>
