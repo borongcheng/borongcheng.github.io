@@ -2,53 +2,53 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on 笔记网站</title>
-    <link>https://borongcheng.github.io/tags/</link>
+    <link>https://borongcheng.github.io/static/tags/</link>
     <description>Recent content in Tags on 笔记网站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>私有财产</copyright>
     <lastBuildDate>Wed, 28 Aug 2024 11:52:54 +0000</lastBuildDate>
-    <atom:link href="https://borongcheng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://borongcheng.github.io/static/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>JAVA</title>
-      <link>https://borongcheng.github.io/tags/java/</link>
+      <link>https://borongcheng.github.io/static/tags/java/</link>
       <pubDate>Wed, 28 Aug 2024 11:52:54 +0000</pubDate>
-      <guid>https://borongcheng.github.io/tags/java/</guid>
+      <guid>https://borongcheng.github.io/static/tags/java/</guid>
       <description></description>
     </item>
     <item>
       <title>Spring</title>
-      <link>https://borongcheng.github.io/tags/spring/</link>
+      <link>https://borongcheng.github.io/static/tags/spring/</link>
       <pubDate>Wed, 28 Aug 2024 11:52:54 +0000</pubDate>
-      <guid>https://borongcheng.github.io/tags/spring/</guid>
+      <guid>https://borongcheng.github.io/static/tags/spring/</guid>
       <description></description>
     </item>
     <item>
       <title>database</title>
-      <link>https://borongcheng.github.io/tags/database/</link>
+      <link>https://borongcheng.github.io/static/tags/database/</link>
       <pubDate>Thu, 07 Dec 2023 16:52:54 +0000</pubDate>
-      <guid>https://borongcheng.github.io/tags/database/</guid>
+      <guid>https://borongcheng.github.io/static/tags/database/</guid>
       <description></description>
     </item>
     <item>
       <title>JVM</title>
-      <link>https://borongcheng.github.io/tags/jvm/</link>
+      <link>https://borongcheng.github.io/static/tags/jvm/</link>
       <pubDate>Thu, 07 Dec 2023 16:52:54 +0000</pubDate>
-      <guid>https://borongcheng.github.io/tags/jvm/</guid>
+      <guid>https://borongcheng.github.io/static/tags/jvm/</guid>
       <description></description>
     </item>
     <item>
       <title>并发编程</title>
-      <link>https://borongcheng.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</link>
+      <link>https://borongcheng.github.io/static/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</link>
       <pubDate>Thu, 07 Dec 2023 16:52:54 +0000</pubDate>
-      <guid>https://borongcheng.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</guid>
+      <guid>https://borongcheng.github.io/static/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</guid>
       <description></description>
     </item>
     <item>
       <title>生活</title>
-      <link>https://borongcheng.github.io/tags/%E7%94%9F%E6%B4%BB/</link>
+      <link>https://borongcheng.github.io/static/tags/%E7%94%9F%E6%B4%BB/</link>
       <pubDate>Thu, 07 Dec 2023 16:52:54 +0000</pubDate>
-      <guid>https://borongcheng.github.io/tags/%E7%94%9F%E6%B4%BB/</guid>
+      <guid>https://borongcheng.github.io/static/tags/%E7%94%9F%E6%B4%BB/</guid>
       <description></description>
     </item>
   </channel>

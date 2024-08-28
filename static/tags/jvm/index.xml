@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>JVM on 笔记网站</title>
-    <link>https://borongcheng.github.io/tags/jvm/</link>
+    <link>https://borongcheng.github.io/static/tags/jvm/</link>
     <description>Recent content in JVM on 笔记网站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>私有财产</copyright>
     <lastBuildDate>Thu, 07 Dec 2023 16:52:54 +0000</lastBuildDate>
-    <atom:link href="https://borongcheng.github.io/tags/jvm/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://borongcheng.github.io/static/tags/jvm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>JVM的对象布局--定义</title>
-      <link>https://borongcheng.github.io/specialized/java/jvm/jvm%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%B8%83%E5%B1%80/</link>
+      <link>https://borongcheng.github.io/static/specialized/java/jvm/jvm%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%B8%83%E5%B1%80/</link>
       <pubDate>Thu, 07 Dec 2023 16:52:54 +0000</pubDate>
-      <guid>https://borongcheng.github.io/specialized/java/jvm/jvm%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%B8%83%E5%B1%80/</guid>
+      <guid>https://borongcheng.github.io/static/specialized/java/jvm/jvm%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%B8%83%E5%B1%80/</guid>
       <description>JVM的对象布局&amp;ndash;定义 JVM的设计需要遵循JAVA虚拟机规范，所以在不同的虚拟机上，对象的布局结构基本相同，大小不一定相同。 一、</description>
     </item>
   </channel>
