@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>集合 on 笔记网站</title>
+    <link>https://borongcheng.github.io/static/tags/%E9%9B%86%E5%90%88/</link>
+    <description>Recent content in 集合 on 笔记网站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <copyright>私有财产</copyright>
+    <lastBuildDate>Sat, 28 Jun 2025 11:52:00 +0000</lastBuildDate>
+    <atom:link href="https://borongcheng.github.io/static/tags/%E9%9B%86%E5%90%88/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ConCurrentHashMap</title>
+      <link>https://borongcheng.github.io/static/specialized/java/base/sourcereading/concurrenthashmap/</link>
+      <pubDate>Sat, 28 Jun 2025 11:52:00 +0000</pubDate>
+      <guid>https://borongcheng.github.io/static/specialized/java/base/sourcereading/concurrenthashmap/</guid>
+      <description>一、定义 二、源码解读 入口 结构 get 根据hash值计算下标，拿到下标位置首节点。 根据首节点hash值判断是否为树节点，是则通过红黑树查找返回。 不是</description>
+    </item>
+    <item>
+      <title>HashMap</title>
+      <link>https://borongcheng.github.io/static/specialized/java/base/sourcereading/hashmap/</link>
+      <pubDate>Fri, 20 Jun 2025 15:30:00 +0000</pubDate>
+      <guid>https://borongcheng.github.io/static/specialized/java/base/sourcereading/hashmap/</guid>
+      <description>一、定义 二、源码阅读 入口 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 package java.lang; import java.util.HashMap; import java.util.Hashtable; import java.util.concurrent.ConcurrentHashMap; public class Map { static HashMap&amp;lt;String, String&amp;gt; map = new HashMap&amp;lt;&amp;gt;(); public static void main(String[] args) { map.put(&amp;#34;1&amp;#34;, &amp;#34;1&amp;#34;); map.get(&amp;#34;1&amp;#34;); map.remove(&amp;#34;1&amp;#34;); } } Map结构 1 2 3 4</description>
+    </item>
+  </channel>
+</rss>
