@@ -7,8 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>私有财产</copyright>
-    <lastBuildDate>Fri, 25 Jul 2025 09:52:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 11 Sep 2025 14:00:54 +0000</lastBuildDate>
     <atom:link href="https://borongcheng.github.io/static/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>算法</title>
+      <link>https://borongcheng.github.io/static/tags/%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Thu, 11 Sep 2025 14:00:54 +0000</pubDate>
+      <guid>https://borongcheng.github.io/static/tags/%E7%AE%97%E6%B3%95/</guid>
+      <description></description>
+    </item>
     <item>
       <title>JAVA</title>
       <link>https://borongcheng.github.io/static/tags/java/</link>

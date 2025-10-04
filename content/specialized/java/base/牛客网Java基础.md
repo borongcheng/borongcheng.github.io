@@ -2,6 +2,7 @@
 date = "2023-12-07T16:52:54"
 title = "java基础"
 tags= ["JAVA"]
+categories = ["专业"]
 +++
 # 						java基础
 

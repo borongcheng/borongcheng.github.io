@@ -1,0 +1,37 @@
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const tocElement = document.querySelector('.post-toc');
+    if (tocElement) {
+      const tocTitle = tocElement.querySelector('.post-toc-title');
+      
+      // 移动端目录折叠/展开功能
+      if (window.innerWidth <= 768) {
+        tocTitle.addEventListener('click', function() {
+          tocElement.classList.toggle('active');
+        });
+      }
+      
+      // 点击目录链接平滑滚动
+      const tocLinks = tocElement.querySelectorAll('a');
+      tocLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 20,
+              behavior: 'smooth'
+            });
+            
+            // 在移动端点击链接后关闭目录
+            if (window.innerWidth <= 768) {
+              tocElement.classList.remove('active');
+            }
+          }
+        });
+      });
+    }
+  });
+</script>

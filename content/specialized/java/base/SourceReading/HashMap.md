@@ -2,6 +2,7 @@
 date = "2025-06-20T15:30:00"
 title = "HashMap"
 tags = ["JAVA","集合","源码阅读"]
+categories = ["专业"]
 +++
 # 一、定义
 

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="borong.cheng" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="/static/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    <link rel="stylesheet" href="/static/css/main.min.b84e0970f1042270e748e500e667d336cc11fd43e14b8fd28a91b688e487575c.css" />
     
 
     
@@ -28,7 +28,7 @@
   </head>
   <body>
     <header class="app-header">
-      <a href="https://borongcheng.github.io/static/"><img class="app-header-avatar" src="/static/avatar.jpg" alt="borong.cheng" /></a>
+      <a href="https://borongcheng.github.io/static/"><img class="app-header-avatar" src="/static/picture/daji.jpg" alt="borong.cheng" /></a>
       <span class="app-header-title">笔记网站</span>
       <nav class="app-header-menu">
           <a class="app-header-menu-item" href="/static/">Home</a>
@@ -71,8 +71,31 @@
         </div>
       </div>
     </header>
-    <div class="post-content">
-      <p><img src="https://cdn.nlark.com/yuque/0/2024/jpeg/22648511/1717058156371-3bb877f1-7ba4-4dd1-b4e6-5db726391432.jpeg#averageHue=%23f8f8f8&amp;clientId=ua02b68fb-45ae-4&amp;from=paste&amp;id=uacea561c&amp;originHeight=376&amp;originWidth=640&amp;originalType=url&amp;ratio=1.25&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;taskId=ua1ee9aaf-28ba-4f5e-bf6f-e1a5884c342&amp;title=" alt=""></p>
+    <div class="post-container">
+      <div class="post-toc-container">
+        
+<div class="post-toc">
+  <div class="post-toc-title">目录</div>
+  <div class="post-toc-content">
+    
+    <nav>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1容器简介">（1）、容器简介</a></li>
+        <li><a href="#2构造关系">（2）、构造关系</a></li>
+        <li><a href="#1classpathxmlapplicationcontext">1、ClassPathXmlApplicationContext</a></li>
+        <li><a href="#2annotationapplicationcontext">2、AnnotationApplicationContext</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+
+      </div>
+      <div class="post-content">
+        <p><img src="https://cdn.nlark.com/yuque/0/2024/jpeg/22648511/1717058156371-3bb877f1-7ba4-4dd1-b4e6-5db726391432.jpeg#averageHue=%23f8f8f8&amp;clientId=ua02b68fb-45ae-4&amp;from=paste&amp;id=uacea561c&amp;originHeight=376&amp;originWidth=640&amp;originalType=url&amp;ratio=1.25&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;taskId=ua1ee9aaf-28ba-4f5e-bf6f-e1a5884c342&amp;title=" alt=""></p>
 <h1 id="一container-容器">一、container 容器</h1>
 <h3 id="1容器简介">（1）、容器简介</h3>
 <p>1、什么是容器？
@@ -3779,6 +3802,7 @@ java反射实例：1、检查是否已经被resolvedConstructorOrFactoryMethod �
 </div>
 </div><h3 id="2annotationapplicationcontext">2、AnnotationApplicationContext</h3>
 
+      </div>
     </div>
     <div class="post-footer">
       
@@ -3786,5 +3810,48 @@ java反射实例：1、检查是否已经被resolvedConstructorOrFactoryMethod �
   </article>
 
     </main>
+    
+      <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const tocElement = document.querySelector('.post-toc');
+    if (tocElement) {
+      const tocTitle = tocElement.querySelector('.post-toc-title');
+      
+      
+      if (window.innerWidth <= 768) {
+        tocTitle.addEventListener('click', function() {
+          tocElement.classList.toggle('active');
+        });
+      }
+      
+      
+      const tocLinks = tocElement.querySelectorAll('a');
+      tocLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 20,
+              behavior: 'smooth'
+            });
+            
+            
+            if (window.innerWidth <= 768) {
+              tocElement.classList.remove('active');
+            }
+          }
+        });
+      });
+    }
+  });
+</script>
+    
+    
+    
+    
+    <script src="/static/js/back-button.min.fc91a7f6baac199fdacc77cc4db320ef5d39d48fd68258cbef8d1ccf2e6b8ea0.js" defer></script>
   </body>
 </html>

@@ -2,7 +2,7 @@
 date = "2023-12-07T16:52:54"
 title = "JVM的对象布局--定义"
 tags = ["JAVA","JVM","并发编程"]
-categories = ["专业","JVM"]
+categories = ["专业"]
 +++
 
 # JVM的对象布局--定义

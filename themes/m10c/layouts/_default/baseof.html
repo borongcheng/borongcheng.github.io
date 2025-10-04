@@ -49,5 +49,12 @@
         {{ .Content }}
       {{ end }}
     </main>
+    {{ if not .IsHome }}
+      {{ partial "toc-script.html" . }}
+    {{ end }}
+    
+    <!-- 返回按钮功能 -->
+    {{ $backButtonJS := resources.Get "js/back-button.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $backButtonJS.RelPermalink }}" defer></script>
   </body>
 </html>

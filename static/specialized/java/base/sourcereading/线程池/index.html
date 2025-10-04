@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="borong.cheng" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="/static/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    <link rel="stylesheet" href="/static/css/main.min.b84e0970f1042270e748e500e667d336cc11fd43e14b8fd28a91b688e487575c.css" />
     
 
     
@@ -28,7 +28,7 @@
   </head>
   <body>
     <header class="app-header">
-      <a href="https://borongcheng.github.io/static/"><img class="app-header-avatar" src="/static/avatar.jpg" alt="borong.cheng" /></a>
+      <a href="https://borongcheng.github.io/static/"><img class="app-header-avatar" src="/static/picture/daji.jpg" alt="borong.cheng" /></a>
       <span class="app-header-title">笔记网站</span>
       <nav class="app-header-menu">
           <a class="app-header-menu-item" href="/static/">Home</a>
@@ -72,8 +72,36 @@
         </div>
       </div>
     </header>
-    <div class="post-content">
-      <p><a href="https://www.cnblogs.com/star95/p/17714057.html">https://www.cnblogs.com/star95/p/17714057.html</a></p>
+    <div class="post-container">
+      <div class="post-toc-container">
+        
+<div class="post-toc">
+  <div class="post-toc-title">目录</div>
+  <div class="post-toc-content">
+    
+    <nav>
+  <ul>
+    <li><a href="#executor">Executor</a></li>
+    <li><a href="#executorservice">ExecutorService</a></li>
+    <li><a href="#abstractexecutorservice">AbstractExecutorService</a></li>
+    <li><a href="#threadpoolexecutor">ThreadPoolExecutor</a>
+      <ul>
+        <li><a href="#submit">submit</a></li>
+        <li><a href="#worker">Worker</a></li>
+        <li><a href="#shutdown">ShutDown</a></li>
+        <li><a href="#shutdownnow">ShutDownNow</a></li>
+      </ul>
+    </li>
+    <li><a href="#线程池扩展功能">线程池扩展功能</a></li>
+    <li><a href="#自定义拒绝策略">自定义拒绝策略</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+
+      </div>
+      <div class="post-content">
+        <p><a href="https://www.cnblogs.com/star95/p/17714057.html">https://www.cnblogs.com/star95/p/17714057.html</a></p>
 <h1 id="一定义">一、定义</h1>
 <p>1、什么是线程池？</p>
 <p>是一种管理和复用线程的机制，它通过预先创建一定数量的线程，将任务分配给这些线程执行，避免频繁的创建和销毁。</p>
@@ -135,7 +163,7 @@
 <p>running = 调用shutdownNow() =&gt; stop状态: 不再接收任务，并不再处理任务，且尝试中断任务。</p>
 <p>stop ==&gt; tidying : 线程销毁完毕，任务队列为空。</p>
 <p>tidying ==&gt; terminated: 调用线程池关闭前的勾子方法，线程池关闭</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2025/png/22648511/1749714942339-0c261415-12b2-43e2-b78a-14313ea8d5ae.png" alt=""></p>
+<p><em>[线程池状态转换图]</em></p>
 <p>7、线程池的工作流程是怎样的？任务提交后会经历哪些步骤？</p>
 <p>提交任务时，若当前线程数 &lt; 核心线程数，创建新线程执行任务。</p>
 <p>若当前线程数 ≥ 核心线程数，将任务放入队列。</p>
@@ -174,7 +202,7 @@
 <p>13、任务执行时为什么Worker需要加锁？</p>
 <p>本质就是为了防止worker在执行任务的时候被线程池更改状态，在shutdownNow的时候线程池会尝试中断正在执行的任务，区分的边界就是上锁之前的Worker可以被中断。</p>
 <h1 id="二源码">二、源码</h1>
-<p><img src="https://cdn.nlark.com/yuque/0/2025/png/22648511/1749632712335-d4ff88c1-1347-4717-b3d8-a9929c31ccf9.png" alt=""></p>
+<p><em>[线程池架构图]</em></p>
 <h2 id="executor">Executor</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -411,24 +439,44 @@
 </div><h2 id="threadpoolexecutor">ThreadPoolExecutor</h2>
 <p>入口</p>
 <blockquote>
-<p><code>&lt;font style=&quot;color:rgb(31, 35, 40);background-color:rgba(129, 139, 152, 0.12);&quot;&gt;ThreadPoolExecutor&lt;/font&gt;</code><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->3 个最重要的参数：<!-- raw HTML omitted --></p>
+<p>ThreadPoolExecutor
+3 个最重要的参数：</p>
 <ul>
-<li><code>&lt;font style=&quot;color:rgb(31, 35, 40);background-color:rgba(129, 139, 152, 0.12);&quot;&gt;corePoolSize&lt;/font&gt;</code><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->: 任务队列未达到队列容量时，最大可以同时运行的线程数量。<!-- raw HTML omitted --></li>
-<li><code>&lt;font style=&quot;color:rgb(31, 35, 40);background-color:rgba(129, 139, 152, 0.12);&quot;&gt;maximumPoolSize&lt;/font&gt;</code><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->: 任务队列中存放的任务达到队列容量的时候，当前可以同时运行的线程数量变为最大线程数。<!-- raw HTML omitted --></li>
-<li><code>&lt;font style=&quot;color:rgb(31, 35, 40);background-color:rgba(129, 139, 152, 0.12);&quot;&gt;workQueue&lt;/font&gt;</code><!-- raw HTML omitted -->: 新任务来的时候会先判断当前运行的线程数量是否达到核心线程数，如果达到的话，新任务就会被存放在队列中。<!-- raw HTML omitted --></li>
-</ul>
-<p><code>&lt;font style=&quot;color:rgb(31, 35, 40);background-color:rgba(129, 139, 152, 0.12);&quot;&gt;ThreadPoolExecutor&lt;/font&gt;</code><!-- raw HTML omitted -->其他常见参数 :<!-- raw HTML omitted --></p>
-<ul>
-<li><code>&lt;font style=&quot;color:rgb(31, 35, 40);background-color:rgba(129, 139, 152, 0.12);&quot;&gt;keepAliveTime&lt;/font&gt;</code><!-- raw HTML omitted -->:线程池中的线程数量大于<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><code>&lt;font style=&quot;color:rgb(31, 35, 40);background-color:rgba(129, 139, 152, 0.12);&quot;&gt;corePoolSize&lt;/font&gt;</code><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->的时候，如果这时没有新的任务提交，核心线程外的线程不会立即销毁，而是会等待，直到等待的时间超过了<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><code>&lt;font style=&quot;color:rgb(31, 35, 40);background-color:rgba(129, 139, 152, 0.12);&quot;&gt;keepAliveTime&lt;/font&gt;</code><!-- raw HTML omitted -->才会被回收销毁。<!-- raw HTML omitted --></li>
-<li><code>&lt;font style=&quot;color:rgb(31, 35, 40);background-color:rgba(129, 139, 152, 0.12);&quot;&gt;unit&lt;/font&gt;</code><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><code>&lt;font style=&quot;color:rgb(31, 35, 40);background-color:rgba(129, 139, 152, 0.12);&quot;&gt;keepAliveTime&lt;/font&gt;</code><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->参数的时间单位。<!-- raw HTML omitted --></li>
-<li><code>&lt;font style=&quot;color:rgb(31, 35, 40);background-color:rgba(129, 139, 152, 0.12);&quot;&gt;threadFactory&lt;/font&gt;</code><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->:executor 创建新线程的时候会用到。<!-- raw HTML omitted --></li>
-<li><code>&lt;font style=&quot;color:rgb(31, 35, 40);background-color:rgba(129, 139, 152, 0.12);&quot;&gt;handler&lt;/font&gt;</code><!-- raw HTML omitted --> :拒绝策略，当核心线程正在执行，任务队列加满，最大线程也满了之后会根据选择的策略进行处理。<!-- raw HTML omitted -->
-<ul>
-<li><!-- raw HTML omitted -->AbortPolicy: 会在submit的时候抛出RejectedExecutionException异常。<!-- raw HTML omitted --></li>
-<li><!-- raw HTML omitted -->DiscardPolicy：不处理新任务直接丢弃。<!-- raw HTML omitted --></li>
-<li><!-- raw HTML omitted -->DiscardOldestPolicy：此策略将丢弃最早未处理的任务请求。<!-- raw HTML omitted --></li>
-<li><!-- raw HTML omitted -->CallerRunsPolicy：调用执行自己的线程运行，即主线程运行这个任务<!-- raw HTML omitted --></li>
-</ul>
+<li>
+<p>corePoolSize : 任务队列未达到队列容量时，最大可以同时运行的线程数量。</p>
+</li>
+<li>
+<p>maximumPoolSize : 任务队列中存放的任务达到队列容量的时候，当前可以同时运行的线程数量变为最大线程数。</p>
+</li>
+<li>
+<p>workQueue: 新任务来的时候会先判断当前运行的线程数量是否达到核心线程数，如果达到的话，新任务就会被存放在队列中。</p>
+</li>
+<li>
+<p>ThreadPoolExecutor其他常见参数 :</p>
+</li>
+<li>
+<p>keepAliveTime:线程池中的线程数量大于 corePoolSize 的时候，如果这时没有新的任务提交，核心线程外的线程不会立即销毁，而是会等待，直到等待的时间超过了 keepAliveTime才会被回收销毁。</p>
+</li>
+<li>
+<p>unit : keepAliveTime 参数的时间单位。</p>
+</li>
+<li>
+<p>threadFactory :executor 创建新线程的时候会用到。</p>
+</li>
+<li>
+<p>handler :拒绝策略，当核心线程正在执行，任务队列加满，最大线程也满了之后会根据选择的策略进行处理。</p>
+</li>
+<li>
+<p>AbortPolicy: 会在submit的时候抛出RejectedExecutionException异常。</p>
+</li>
+<li>
+<p>DiscardPolicy：不处理新任务直接丢弃。</p>
+</li>
+<li>
+<p>DiscardOldestPolicy：此策略将丢弃最早未处理的任务请求。</p>
+</li>
+<li>
+<p>CallerRunsPolicy：调用执行自己的线程运行，即主线程运行这个任务</p>
 </li>
 </ul>
 </blockquote>
@@ -1986,6 +2034,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div>
+      </div>
     </div>
     <div class="post-footer">
       
@@ -1993,5 +2042,48 @@
   </article>
 
     </main>
+    
+      <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const tocElement = document.querySelector('.post-toc');
+    if (tocElement) {
+      const tocTitle = tocElement.querySelector('.post-toc-title');
+      
+      
+      if (window.innerWidth <= 768) {
+        tocTitle.addEventListener('click', function() {
+          tocElement.classList.toggle('active');
+        });
+      }
+      
+      
+      const tocLinks = tocElement.querySelectorAll('a');
+      tocLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 20,
+              behavior: 'smooth'
+            });
+            
+            
+            if (window.innerWidth <= 768) {
+              tocElement.classList.remove('active');
+            }
+          }
+        });
+      });
+    }
+  });
+</script>
+    
+    
+    
+    
+    <script src="/static/js/back-button.min.fc91a7f6baac199fdacc77cc4db320ef5d39d48fd68258cbef8d1ccf2e6b8ea0.js" defer></script>
   </body>
 </html>

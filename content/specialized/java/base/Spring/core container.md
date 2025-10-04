@@ -2,6 +2,7 @@
 date = "2024-08-28T11:52:54"
 title = "IOC容器"
 tags = ["JAVA","Spring"]
+categories = ["专业"]
 +++
 ![](https://cdn.nlark.com/yuque/0/2024/jpeg/22648511/1717058156371-3bb877f1-7ba4-4dd1-b4e6-5db726391432.jpeg#averageHue=%23f8f8f8&clientId=ua02b68fb-45ae-4&from=paste&id=uacea561c&originHeight=376&originWidth=640&originalType=url&ratio=1.25&rotation=0&showTitle=false&status=done&style=none&taskId=ua1ee9aaf-28ba-4f5e-bf6f-e1a5884c342&title=)
 #  一、container 容器

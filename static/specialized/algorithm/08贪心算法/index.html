@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <title>贪心算法 // 笔记网站</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.121.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="borong.cheng" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/static/css/main.min.b84e0970f1042270e748e500e667d336cc11fd43e14b8fd28a91b688e487575c.css" />
+    
+
+    
+    <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://borongcheng.github.io/static/%E9%A6%96%E9%A1%B5%E4%B8%AD%E9%97%B4%E7%9A%84%E5%9B%BE%E7%89%87" /><meta name="twitter:title" content="贪心算法"/>
+<meta name="twitter:description" content="一、定义 什么是贪心算法？ 贪心算法(greedy algorithm)，又称贪婪算法，是一种在每一步选择中都采取当前状态下最好或最优的选择，从而"/>
+
+    <meta property="og:title" content="贪心算法" />
+<meta property="og:description" content="一、定义 什么是贪心算法？ 贪心算法(greedy algorithm)，又称贪婪算法，是一种在每一步选择中都采取当前状态下最好或最优的选择，从而" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://borongcheng.github.io/static/specialized/algorithm/08%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/" /><meta property="og:image" content="https://borongcheng.github.io/static/%E9%A6%96%E9%A1%B5%E4%B8%AD%E9%97%B4%E7%9A%84%E5%9B%BE%E7%89%87" /><meta property="article:section" content="specialized" />
+<meta property="article:published_time" content="2025-09-11T14:00:54+00:00" />
+<meta property="article:modified_time" content="2025-09-11T14:00:54+00:00" /><meta property="og:site_name" content="柏荣的博客" />
+
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://borongcheng.github.io/static/"><img class="app-header-avatar" src="/static/picture/daji.jpg" alt="borong.cheng" /></a>
+      <span class="app-header-title">笔记网站</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/static/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/static/categories/">类别</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/static/tags/">Tags</a>
+      </nav>
+      <p>柏荣的博客</p>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">贪心算法</h1>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Sep 11, 2025
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          5 min read
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line>
+</svg>
+              <a class="tag" href="https://borongcheng.github.io/static/tags/%E7%AE%97%E6%B3%95/">算法</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-container">
+      <div class="post-toc-container">
+        
+<div class="post-toc">
+  <div class="post-toc-title">目录</div>
+  <div class="post-toc-content">
+    
+    <nav>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1分糖果">1、分糖果</a></li>
+        <li><a href="#2卖股票的最佳时机">2、卖股票的最佳时机</a></li>
+        <li><a href="#3跳跃游戏">3、跳跃游戏</a></li>
+        <li><a href="#4跳跃游戏2">4、跳跃游戏2</a></li>
+        <li><a href="#5左右文本对齐">5、左右文本对齐</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+
+      </div>
+      <div class="post-content">
+        <h1 id="一定义">一、定义</h1>
+<p><strong>什么是贪心算法？</strong></p>
+<p>贪心算法(greedy algorithm)，又称贪婪算法，是一种在每一步选择中都采取当前状态下最好或最优的选择，从而希望导致结果是最好或最优的算法。</p>
+<blockquote>
+<p>只需要关注局部的特征，满足所有局部特征及和得到全局最优解。</p>
+</blockquote>
+<p>是一种在每一步选择都是当前状态最优的情况下，希望能达到全局最优的算法策略。</p>
+<p>它通常解决那些具有最优子结构的算法策略，即全局最优能通过局部最优去获取。</p>
+<p><strong>贪心算法思路：</strong></p>
+<ul>
+<li>制定问题模型：
+<ul>
+<li>将问题抽象成一个数学模型，明确数据的输入输出，以及约束。</li>
+</ul>
+</li>
+<li>找到最优子结构:
+<ul>
+<li>通过分析问题去获取最优子结构，即问题的最优解包含的子问题的最优解。</li>
+</ul>
+</li>
+<li>制定贪心策略：
+<ul>
+<li>根据最优子结构制定贪心策略，即每一步都是当前的最优选择，以期望全局最优。</li>
+</ul>
+</li>
+<li>实现贪心算法：
+<ul>
+<li>将贪心策略转化成具体的算法实现，一般都是通过迭代或者递归去完成。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>贪心算法没有固定的套路，需要根据题目去手动模拟，通过数学归纳法或者反正法去证明可以通过贪心实现</p>
+</blockquote>
+<p><strong>贪心算法会有哪些常见的题型？</strong></p>
+<ul>
+<li>字典序最小的字符串连接方案</li>
+<li>点灯问题</li>
+<li>分金条问题</li>
+<li>会议的最多安排</li>
+<li>IPO问题</li>
+<li>求图中的最小生成树</li>
+<li>哈夫曼编码</li>
+</ul>
+<h1 id="二实例">二、实例</h1>
+<h3 id="1分糖果">1、分糖果</h3>
+<p><a href="https://leetcode.cn/problems/candy/description/?envType=study-plan-v2&amp;envId=top-interview-150">https://leetcode.cn/problems/candy/description/?envType=study-plan-v2&amp;envId=top-interview-150</a></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/22648511/1709793214653-ea300121-6485-402e-bff8-50bb1f99c384.png" alt=""></p>
+<blockquote>
+<p>问题模型：</p>
+<p>1、输入一个评分数组。</p>
+<p>2、输出最少糖果数目。</p>
+<p>3、约束最少分配一个糖，且相邻评分高的获得多。</p>
+<p>最优子结构:</p>
+<p>1、保证当前评分大于相邻评分时，获得的糖至少比前一位或后一位多一个。</p>
+<p>2、保证评分为0时，最少获得一颗糖</p>
+<p>贪心策略：</p>
+<p>1、初始化一个数组，分配每个位为1，满足最优子结构1条件</p>
+<p>2、从左往右遍历，保证当前位大于前一位评分时，当前位得糖数是前一位 + 1</p>
+<p>3、从右往左遍历，保证当前位评分大于后一位评分，且当前位糖数小于后一位时，当前位得糖数为后一位 + 1</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">candy</span><span class="p">(</span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">ratings</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">nums</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="o">[</span><span class="n">ratings</span><span class="p">.</span><span class="na">length</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// nums 初始每个位都为1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 从左往右 当前位置分数大于前一位分数，则当前位置加1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">nums</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ratings</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">ratings</span><span class="o">[</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">1</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">1</span><span class="o">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 从右往左，当前位置大于后一位的分数，则当前位置加1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nums</span><span class="p">.</span><span class="na">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">--</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">nums</span><span class="p">.</span><span class="na">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ratings</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">ratings</span><span class="o">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">1</span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">1</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">1</span><span class="o">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">count</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2卖股票的最佳时机">2、卖股票的最佳时机</h3>
+<p><a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/description/?envType=study-plan-v2&amp;envId=top-interview-150">https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/description/?envType=study-plan-v2&amp;envId=top-interview-150</a></p>
+<p><a href="https://www.yuque.com/tuoyueerwu/ey40ze/xnhesle1tbuo58po#s2Ct5">买卖股票的最佳时机-动态规划</a></p>
+<blockquote>
+<p><!-- raw HTML omitted -->给你一个整数数组<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->prices<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->，其中 <!-- raw HTML omitted --><!-- raw HTML omitted -->prices[i]<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->表示某支股票第<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->i<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->天的价格。<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->在每一天，你可以决定是否购买和/或出售股票。你在任何时候 <!-- raw HTML omitted --><strong><!-- raw HTML omitted -->最多<!-- raw HTML omitted --></strong><!-- raw HTML omitted --> 只能持有<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><strong><!-- raw HTML omitted -->一股<!-- raw HTML omitted --></strong><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->股票。你也可以先购买，然后在<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><strong><!-- raw HTML omitted -->同一天<!-- raw HTML omitted --></strong><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->出售。<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->返回 <!-- raw HTML omitted --><em><!-- raw HTML omitted -->你能获得的 <!-- raw HTML omitted --><strong><strong><!-- raw HTML omitted -->最大<!-- raw HTML omitted --></strong></strong><!-- raw HTML omitted --> 利润<!-- raw HTML omitted --></em><!-- raw HTML omitted --> 。<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->例：<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->prices = [7,1,5,3,6,4]<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->7<!-- raw HTML omitted --></p>
+</blockquote>
+<p><strong>思路：</strong></p>
+<ul>
+<li>制定问题模型
+<ul>
+<li>输入每天的股票价格</li>
+<li>输出买卖之后的最大利润</li>
+<li>限制条件：每天最多持有一支股票，可以进行买入或卖出</li>
+</ul>
+</li>
+<li>最优子结构
+<ul>
+<li>每次买入卖出的利润大于0，则最终的结果肯定是最大利润</li>
+</ul>
+</li>
+<li>贪心策略
+<ul>
+<li>选取第i天的股票，计算profitMax += max(0,prices[i] - prices[i -1])</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">maxProfit</span><span class="p">(</span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">prices</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//贪心策略</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">profit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">prices</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//最优子结构</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">profit</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">0</span><span class="p">,</span><span class="n">prices</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">prices</span><span class="o">[</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="n">1</span><span class="o">]</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">profit</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3跳跃游戏">3、跳跃游戏</h3>
+<p><a href="https://leetcode.cn/problems/jump-game/description/?envType=study-plan-v2&amp;envId=top-interview-150">https://leetcode.cn/problems/jump-game/description/?envType=study-plan-v2&amp;envId=top-interview-150</a></p>
+<p><a href="https://www.yuque.com/tuoyueerwu/ey40ze/xnhesle1tbuo58po#yI2u9">跳跃游戏-动态规划</a></p>
+<blockquote>
+<p><!-- raw HTML omitted -->给你一个非负整数数组 <!-- raw HTML omitted --><!-- raw HTML omitted -->nums<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->，你最初位于数组的<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><strong><!-- raw HTML omitted -->第一个下标<!-- raw HTML omitted --></strong><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->。数组中的每个元素代表你在该位置可以跳跃的最大长度。<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->判断你是否能够到达最后一个下标，如果可以，返回 <!-- raw HTML omitted --><!-- raw HTML omitted -->true<!-- raw HTML omitted --><!-- raw HTML omitted --> ；否则，返回 <!-- raw HTML omitted --><!-- raw HTML omitted -->false<!-- raw HTML omitted --><!-- raw HTML omitted --> 。<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->nums = [2,3,1,1,4]		nums = [3,2,1,0,4]<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->true					false<!-- raw HTML omitted --></p>
+</blockquote>
+<p><strong>思路</strong></p>
+<ul>
+<li>制订问题模型
+<ul>
+<li>输入每一个下标能跳跃的步数</li>
+<li>输出最后一个下标是否能够到达</li>
+</ul>
+</li>
+<li>最优子结构
+<ul>
+<li>每一步都跳跃最大的距离</li>
+</ul>
+</li>
+<li>贪心策略
+<ul>
+<li>维护每一次跳跃能够到达的最远位置</li>
+<li>maxStep = Math.max(maxStep,nums[i] + i if i &lt; maxStep)</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">canJump</span><span class="p">(</span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">nums</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 贪心策略</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 尽可能到所能到的最远位置 维护一个最远位下标</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">maxStep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">nums</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">maxStep</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">maxStep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">maxStep</span><span class="p">,</span><span class="w"> </span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">maxStep</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">nums</span><span class="p">.</span><span class="na">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4跳跃游戏2">4、跳跃游戏2</h3>
+<blockquote>
+<p>与爬楼梯类似</p>
+</blockquote>
+<p><a href="https://leetcode.cn/problems/jump-game-ii/description/?envType=study-plan-v2&amp;envId=top-interview-150">https://leetcode.cn/problems/jump-game-ii/description/?envType=study-plan-v2&amp;envId=top-interview-150</a></p>
+<p><a href="https://www.yuque.com/tuoyueerwu/ey40ze/xnhesle1tbuo58po#iHdB9">跳跃游戏2-动态规划</a></p>
+<blockquote>
+<p><!-- raw HTML omitted -->给定一个长度为<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->n<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->的<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><strong><!-- raw HTML omitted -->0 索引<!-- raw HTML omitted --></strong><!-- raw HTML omitted -->整数数组<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->nums<!-- raw HTML omitted --><!-- raw HTML omitted -->。初始位置为<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->nums[0]<!-- raw HTML omitted --><!-- raw HTML omitted -->。<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->每个元素<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->nums[i]<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->表示从索引<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->i<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->向前跳转的最大长度。换句话说，如果你在<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->nums[i]<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->处，你可以跳转到任意<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->nums[i + j]<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->处:<!-- raw HTML omitted --></p>
+<ul>
+<li><!-- raw HTML omitted -->0 &lt;= j &lt;= nums[i]<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --></li>
+<li><!-- raw HTML omitted -->i + j &lt; n<!-- raw HTML omitted --></li>
+</ul>
+<p><!-- raw HTML omitted -->返回到达 <!-- raw HTML omitted --><!-- raw HTML omitted -->nums[n - 1]<!-- raw HTML omitted --><!-- raw HTML omitted --> 的最小跳跃次数。生成的测试用例可以到达 <!-- raw HTML omitted --><!-- raw HTML omitted -->nums[n - 1]<!-- raw HTML omitted --><!-- raw HTML omitted -->。<!-- raw HTML omitted --></p>
+</blockquote>
+<p><strong>思路</strong></p>
+<ul>
+<li>制定问题模型
+<ul>
+<li>输入数组，下标对应可以跳跃的步数</li>
+<li>输出，跳到最后一个下标需要最少的步数</li>
+</ul>
+</li>
+<li>最优子结构
+<ul>
+<li>每一步都能跳最远的距离</li>
+</ul>
+</li>
+<li>贪心策略
+<ul>
+<li>倒序，查找上一步的位置，上一步的下标越小则跳的越远</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">jump</span><span class="p">(</span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">nums</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//贪心算法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//最优子结构是，每次跳的最远，跳的次数就最少</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//倒序遍历，从最后一个节点找能跳到这个节点的下标，选择下标最小的一位</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">minCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nums</span><span class="p">.</span><span class="na">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">index</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">0</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">minIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nums</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">index</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">--</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">index</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">minIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">minIndex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">index</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">minIndex</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">minCount</span><span class="o">++</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">minCount</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="5左右文本对齐">5、左右文本对齐</h3>
+<p><a href="https://leetcode.cn/problems/text-justification/description/?envType=study-plan-v2&amp;envId=top-interview-150">https://leetcode.cn/problems/text-justification/description/?envType=study-plan-v2&amp;envId=top-interview-150</a></p>
+<blockquote>
+<p><!-- raw HTML omitted -->给定一个单词数组 <!-- raw HTML omitted --><!-- raw HTML omitted -->words<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->和一个长度 <!-- raw HTML omitted --><!-- raw HTML omitted -->maxWidth<!-- raw HTML omitted --><!-- raw HTML omitted --> ，重新排版单词，使其成为每行恰好有 <!-- raw HTML omitted --><!-- raw HTML omitted -->maxWidth<!-- raw HTML omitted --><!-- raw HTML omitted --> 个字符，且左右两端对齐的文本。<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->你应该使用 “<!-- raw HTML omitted --><strong><!-- raw HTML omitted -->贪心算法<!-- raw HTML omitted --></strong><!-- raw HTML omitted -->” 来放置给定的单词；也就是说，尽可能多地往每行中放置单词。必要时可用空格 <!-- raw HTML omitted --><!-- raw HTML omitted -->&rsquo; &lsquo;<!-- raw HTML omitted --><!-- raw HTML omitted --> 填充，使得每行恰好有<!-- raw HTML omitted --><!-- raw HTML omitted --> <!-- raw HTML omitted --><em><!-- raw HTML omitted -->maxWidth<!-- raw HTML omitted --></em><!-- raw HTML omitted --> 个字符。<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->要求尽可能均匀分配单词间的空格数量。如果某一行单词间的空格不能均匀分配，则左侧放置的空格数要多于右侧的空格数。<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->文本的最后一行应为左对齐，且单词之间不插入<!-- raw HTML omitted --><strong><!-- raw HTML omitted -->额外的<!-- raw HTML omitted --></strong><!-- raw HTML omitted -->空格。<!-- raw HTML omitted --></p>
+</blockquote>
+
+      </div>
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+    
+      <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const tocElement = document.querySelector('.post-toc');
+    if (tocElement) {
+      const tocTitle = tocElement.querySelector('.post-toc-title');
+      
+      
+      if (window.innerWidth <= 768) {
+        tocTitle.addEventListener('click', function() {
+          tocElement.classList.toggle('active');
+        });
+      }
+      
+      
+      const tocLinks = tocElement.querySelectorAll('a');
+      tocLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 20,
+              behavior: 'smooth'
+            });
+            
+            
+            if (window.innerWidth <= 768) {
+              tocElement.classList.remove('active');
+            }
+          }
+        });
+      });
+    }
+  });
+</script>
+    
+    
+    
+    
+    <script src="/static/js/back-button.min.fc91a7f6baac199fdacc77cc4db320ef5d39d48fd68258cbef8d1ccf2e6b8ea0.js" defer></script>
+  </body>
+</html>

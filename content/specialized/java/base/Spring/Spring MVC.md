@@ -2,6 +2,7 @@
 date = "2024-08-28T11:52:54"
 title = "Spring MVC"
 tags = ["JAVA","Spring"]
+categories = ["专业"]
 +++
 # 一、定义
 1、什么是spring mvc？

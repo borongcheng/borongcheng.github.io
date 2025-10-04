@@ -116,8 +116,9 @@ goldmark.renderer:
 
 # 目录设置
 tableOfContents:
-  startLevel: 4
-  endLevel: 6
+  startLevel: 2
+  endLevel: 4
+  ordered: false
 
 params:
   # 网站默认主题样式 ["auto", "light", "dark"]
@@ -139,6 +140,7 @@ params:
   images:
     - "首页中间的图片"
   author: "borong.cheng"
+  avatar: "picture/daji.jpg"
 module:
   mounts:
     - source: assets/css

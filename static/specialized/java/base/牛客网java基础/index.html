@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="borong.cheng" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="/static/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    <link rel="stylesheet" href="/static/css/main.min.b84e0970f1042270e748e500e667d336cc11fd43e14b8fd28a91b688e487575c.css" />
     
 
     
@@ -28,7 +28,7 @@
   </head>
   <body>
     <header class="app-header">
-      <a href="https://borongcheng.github.io/static/"><img class="app-header-avatar" src="/static/avatar.jpg" alt="borong.cheng" /></a>
+      <a href="https://borongcheng.github.io/static/"><img class="app-header-avatar" src="/static/picture/daji.jpg" alt="borong.cheng" /></a>
       <span class="app-header-title">笔记网站</span>
       <nav class="app-header-menu">
           <a class="app-header-menu-item" href="/static/">Home</a>
@@ -70,8 +70,33 @@
         </div>
       </div>
     </header>
-    <div class="post-content">
-      <h1 id="java基础">java基础</h1>
+    <div class="post-container">
+      <div class="post-toc-container">
+        
+<div class="post-toc">
+  <div class="post-toc-title">目录</div>
+  <div class="post-toc-content">
+    
+    <nav>
+  <ul>
+    <li><a href="#jdbc">JDBC</a>
+      <ul>
+        <li><a href="#1执行对象statementpreparedstatementcallablestatement">1、执行对象Statement、PreparedStatement、CallableStatement</a></li>
+      </ul>
+    </li>
+    <li><a href="#多线程">多线程</a>
+      <ul>
+        <li><a href="#1sleep和wait">1、sleep（）和wait（）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+
+      </div>
+      <div class="post-content">
+        <h1 id="java基础">java基础</h1>
 <h2 id="jdbc">JDBC</h2>
 <h3 id="1执行对象statementpreparedstatementcallablestatement">1、执行对象Statement、PreparedStatement、CallableStatement</h3>
 <ul>
@@ -123,6 +148,7 @@ sleep方法没有释放锁，而wait方法释放了锁，使得其他线程可�
 <p>4.sleep是线程类（Thread）的方法，导致此线程暂停执行指定时间，给执行机会给其他线程，但是监控状态依然保持，到时后会自动恢复。调用sleep不会释放对象锁。</p>
 <p>5.wait是Object类的方法，对此对象调用wait方法导致本线程放弃对象锁，进入等待此对象的等待锁定池，只有针对此对象发出notify方法（或notifyAll）后本线程才进入对象锁定池准备获得对象锁进入运行状态。</p>
 
+      </div>
     </div>
     <div class="post-footer">
       
@@ -130,5 +156,48 @@ sleep方法没有释放锁，而wait方法释放了锁，使得其他线程可�
   </article>
 
     </main>
+    
+      <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const tocElement = document.querySelector('.post-toc');
+    if (tocElement) {
+      const tocTitle = tocElement.querySelector('.post-toc-title');
+      
+      
+      if (window.innerWidth <= 768) {
+        tocTitle.addEventListener('click', function() {
+          tocElement.classList.toggle('active');
+        });
+      }
+      
+      
+      const tocLinks = tocElement.querySelectorAll('a');
+      tocLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 20,
+              behavior: 'smooth'
+            });
+            
+            
+            if (window.innerWidth <= 768) {
+              tocElement.classList.remove('active');
+            }
+          }
+        });
+      });
+    }
+  });
+</script>
+    
+    
+    
+    
+    <script src="/static/js/back-button.min.fc91a7f6baac199fdacc77cc4db320ef5d39d48fd68258cbef8d1ccf2e6b8ea0.js" defer></script>
   </body>
 </html>

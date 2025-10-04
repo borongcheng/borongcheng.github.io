@@ -2,6 +2,7 @@
 date = "2024-08-28T11:52:54"
 title = "AOP切面"
 tags = ["JAVA","Spring"]
+categories = ["专业"]
 +++
 # 一、切面
 > [https://www.cnblogs.com/lifullmoon/p/14654795.html](https://www.cnblogs.com/lifullmoon/p/14654795.html)

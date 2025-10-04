@@ -2,6 +2,7 @@
 date = "2025-07-25T09:52:00"
 title = "ForkJoinPool"
 tags = ["JAVA","线程池","源码阅读"]
+categories = ["专业"]
 +++
 # 一、定义
 forkjoinpool是java 7 开始提供的用于并行执行的任务框架，广泛用于java 8 的parallelStream和CompletableFuture。
