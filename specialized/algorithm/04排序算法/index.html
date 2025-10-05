@@ -1,0 +1,181 @@
+<!doctype html><html lang=zh-CN><head><title>排序算法 // 笔记网站</title>
+<link rel="shortcut icon" href=/favicon.ico><meta charset=utf-8><meta name=generator content="Hugo 0.121.0"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="borong.cheng"><meta name=description content><link rel=stylesheet href=/static/css/main.min.b84e0970f1042270e748e500e667d336cc11fd43e14b8fd28a91b688e487575c.css><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://borongcheng.github.io/static/%E9%A6%96%E9%A1%B5%E4%B8%AD%E9%97%B4%E7%9A%84%E5%9B%BE%E7%89%87"><meta name=twitter:title content="排序算法"><meta name=twitter:description content="一、定义 选择排序 冒泡排序 插入排序 归并排序 是一种基于分治思想的排序，它将待排序数组分成若干个子数组，然后递归的对这些子数组进行排序，最后将子数"><meta property="og:title" content="排序算法"><meta property="og:description" content="一、定义 选择排序 冒泡排序 插入排序 归并排序 是一种基于分治思想的排序，它将待排序数组分成若干个子数组，然后递归的对这些子数组进行排序，最后将子数"><meta property="og:type" content="article"><meta property="og:url" content="https://borongcheng.github.io/static/specialized/algorithm/04%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"><meta property="og:image" content="https://borongcheng.github.io/static/%E9%A6%96%E9%A1%B5%E4%B8%AD%E9%97%B4%E7%9A%84%E5%9B%BE%E7%89%87"><meta property="article:section" content="specialized"><meta property="article:published_time" content="2025-09-09T16:30:54+00:00"><meta property="article:modified_time" content="2025-09-09T16:30:54+00:00"><meta property="og:site_name" content="柏荣的博客"></head><body><header class=app-header><a href=https://borongcheng.github.io/static/><img class=app-header-avatar src=/static/picture/daji.jpg alt=borong.cheng></a>
+<span class=app-header-title>笔记网站</span><nav class=app-header-menu><a class=app-header-menu-item href=/static/>Home</a>
+-
+<a class=app-header-menu-item href=/static/categories/>类别</a>
+-
+<a class=app-header-menu-item href=/static/tags/>Tags</a></nav><p>柏荣的博客</p></header><main class=app-container><article class=post><header class=post-header><h1 class=post-title>排序算法</h1><div class=post-meta><div><svg viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Sep 9, 2025</div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock"><title>clock</title><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>4 min read</div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg><a class=tag href=https://borongcheng.github.io/static/tags/%E7%AE%97%E6%B3%95/>算法</a></div></div></header><div class=post-container><div class=post-toc-container><div class=post-toc><div class=post-toc-title>目录</div><div class=post-toc-content><nav><ul><li><ul><li><a href=#归并排序>归并排序</a></li></ul></li></ul></nav></div></div></div><div class=post-content><h1 id=一定义>一、定义</h1><ul><li>选择排序</li><li>冒泡排序</li><li>插入排序</li><li>归并排序<ul><li>是一种基于分治思想的排序，它将待排序数组分成若干个子数组，然后递归的对这些子数组进行排序，最后将子数组合并起来，成为一个有序的数组。</li><li>归并排序技巧：<ul><li>分割：将数组不断分割，直到数组只包含一个元素，达到最小粒度</li><li>排序：对每个子数组合并排序，通过比较两个子数组的元素大小来确定数组的顺序。</li><li>合并：将以排序好的数组进行合并，成为一个大数组。</li></ul></li><li>适用于<ul><li>当数据规模较大，需要进行稳定排序时（及相等的数字顺序不变）。</li><li>当对链表进行排序时，归并排序只需要修改指针指向，不需要进行元素移动，相对其他排序归并排序更合适。</li></ul></li></ul></li><li>快速排序<ul><li>快速排序也是基于分治思想的排序，其中心思想是选择一个基准值，将数组分割成两部分，使得其中一部分小于基准值，另一部分大于基准值，然后对这两部分分别进行递归排序，最终实现整个数组的排序。</li><li>快速排序技巧<ul><li>选择基准值：没有特别的要求，一般选择第一个、最后一个或者随机一个。</li><li>分区：将小于基准值的放基准值左边，大于基准值的放基准值右边，使用双指针或者挖坑填数法。</li><li>递归排序：对基准数左右两侧的子数组进行递归排序；即重复选择基准和分区操作，直到子数组大小为0或1时停止排序。</li><li>合并结果：当递归调用完之后数组所有数值都是有序的。</li></ul></li><li>快排和递归之间的比较<ul><li>基本原理<ul><li>都是用了分治的思想，将数组分成多个小的部分，通过递归使得小数组有序，从而合并到大数组有序。</li></ul></li><li>分区方式<ul><li>快排基于基准值分成左右两个区间。</li><li>归并将数组一分为二，然后对两个数组进行排序</li></ul></li><li>稳定性<ul><li>快排相对递归来说不太稳定，相同的元素在分区的过程中会变动位置。</li></ul></li><li>时间复杂度<ul><li>快排最坏的情况时间复杂度会到达O(n^2),正常情况和递归一样都是n log n。</li></ul></li><li>空间复杂度<ul><li>快排是原地算法，不需要额外的空间进行排序，递归需要n大小的额外临时数组进行排序。</li></ul></li></ul></li></ul></li><li>堆排序</li><li>技术排序</li><li>基数排序</li></ul><h1 id=二示例>二、示例</h1><blockquote><p>选择排序</p></blockquote><blockquote><p>冒泡排序</p></blockquote><blockquote><p>插入排序</p><p>维护一个下标i，i到0这段数组的顺序是有序的。比较交换i之后的数字，知道i为nums.length。</p><p>循环不变量，0 - i部分数据有序。</p></blockquote><h3 id=归并排序>归并排序</h3><blockquote><p>归并排序</p><p>时间复杂度是O(nlog n),n是待排序的数组长度。空间复杂度O(n) ，merge中的临时数组空间</p><p>归并排序和其他排序的区别在于保留了每次比较排序的结果，杜绝了其他排序每次比较的独立性。</p><p>主要减少的比较的次数。</p><p>Master公式: T(n) = 2 * T(n/2) + f(n); == > O(nlog n)</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>public</span><span class=w> </span><span class=kd>static</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>sort</span><span class=p>(</span><span class=kt>int</span><span class=o>[]</span><span class=w> </span><span class=n>nums</span><span class=p>,</span><span class=kt>int</span><span class=w> </span><span class=n>left</span><span class=p>,</span><span class=kt>int</span><span class=w> </span><span class=n>right</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>//排序</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>left</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=n>right</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=k>return</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=kt>int</span><span class=w> </span><span class=n>mid</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>left</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=p>((</span><span class=n>right</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=n>left</span><span class=p>)</span><span class=w> </span><span class=o>&gt;&gt;</span><span class=w> </span><span class=n>1</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>//区间分割的右部分</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>sort</span><span class=p>(</span><span class=n>nums</span><span class=p>,</span><span class=n>mid</span><span class=p>,</span><span class=n>right</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>//区间分割的左部分</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>sort</span><span class=p>(</span><span class=n>nums</span><span class=p>,</span><span class=n>left</span><span class=p>,</span><span class=n>mid</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>//合并区间保证局部有序</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>sortMerge</span><span class=p>(</span><span class=n>nums</span><span class=p>,</span><span class=n>left</span><span class=p>,</span><span class=n>mid</span><span class=p>,</span><span class=n>right</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=kd>static</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>sortMerge</span><span class=p>(</span><span class=kt>int</span><span class=o>[]</span><span class=w> </span><span class=n>nums</span><span class=p>,</span><span class=kt>int</span><span class=w> </span><span class=n>left</span><span class=p>,</span><span class=kt>int</span><span class=w> </span><span class=n>mid</span><span class=p>,</span><span class=kt>int</span><span class=w> </span><span class=n>right</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>//临时数组进行排序</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=kt>int</span><span class=o>[][]</span><span class=w> </span><span class=n>temp</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=kt>int</span><span class=o>[</span><span class=n>right</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=n>left</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>1</span><span class=o>]</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=kt>int</span><span class=w> </span><span class=n>k</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>0</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=kt>int</span><span class=w> </span><span class=n>i</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>left</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=kt>int</span><span class=w> </span><span class=n>j</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>mid</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>1</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=k>while</span><span class=w> </span><span class=p>(</span><span class=n>i</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=n>mid</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=n>j</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=n>right</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>             </span><span class=c1>//比较 插入</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>             </span><span class=kt>int</span><span class=w> </span><span class=n>leftValue</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>nums</span><span class=o>[</span><span class=n>i</span><span class=o>]</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>             </span><span class=kt>int</span><span class=w> </span><span class=n>rightValue</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>nums</span><span class=o>[</span><span class=n>j</span><span class=o>]</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>             </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>leftValue</span><span class=w> </span><span class=o>&lt;</span><span class=w> </span><span class=n>rightValue</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>                 </span><span class=n>temp</span><span class=o>[</span><span class=n>k</span><span class=o>]</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>nums</span><span class=o>[</span><span class=n>i</span><span class=o>]</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>                 </span><span class=n>i</span><span class=o>++</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>             </span><span class=p>}</span><span class=k>else</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>                 </span><span class=n>temp</span><span class=o>[</span><span class=n>k</span><span class=o>]</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>nums</span><span class=o>[</span><span class=n>j</span><span class=o>]</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>                 </span><span class=n>j</span><span class=o>++</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>             </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>             </span><span class=n>k</span><span class=o>++</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=k>while</span><span class=w> </span><span class=p>(</span><span class=n>j</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=n>right</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>             </span><span class=n>temp</span><span class=o>[</span><span class=n>k</span><span class=o>++]</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>nums</span><span class=o>[</span><span class=n>j</span><span class=o>++]</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>             </span><span class=c1>//j++;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>             </span><span class=c1>//k++;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=k>while</span><span class=w> </span><span class=p>(</span><span class=n>i</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=n>mid</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>             </span><span class=n>temp</span><span class=o>[</span><span class=n>k</span><span class=o>++]</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>nums</span><span class=o>[</span><span class=n>i</span><span class=o>++]</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>             </span><span class=c1>//i++;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>             </span><span class=c1>//k++;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=c1>//将临时数组替换原数组中元素</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>for</span><span class=w> </span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>i1</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>0</span><span class=p>;</span><span class=w> </span><span class=n>i1</span><span class=w> </span><span class=o>&lt;</span><span class=w> </span><span class=n>temp</span><span class=p>.</span><span class=na>length</span><span class=p>;</span><span class=w> </span><span class=n>i1</span><span class=o>++</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>nums</span><span class=o>[</span><span class=n>i1</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>left</span><span class=o>]</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>temp</span><span class=o>[</span><span class=n>i1</span><span class=o>]</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=c1>//在一个数组中，每一个数左边比当前小的数累加起来，叫做这个数组的小和。求一个数组的小和</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>//递归排序，并在排序的过程中确认左侧区间的数字需要进行多少次累加  只能选择左侧比当前数字小的数累加，如果小数出现在右侧则忽略</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kd>static</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=nf>sort</span><span class=p>(</span><span class=kt>int</span><span class=o>[]</span><span class=w> </span><span class=n>nums</span><span class=p>,</span><span class=kt>int</span><span class=w> </span><span class=n>left</span><span class=p>,</span><span class=kt>int</span><span class=w> </span><span class=n>right</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>left</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=n>right</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=k>return</span><span class=w> </span><span class=n>0</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=kt>int</span><span class=w> </span><span class=n>mid</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>left</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=p>((</span><span class=n>right</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=n>left</span><span class=p>)</span><span class=w> </span><span class=o>&gt;&gt;</span><span class=w> </span><span class=n>1</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>sort</span><span class=p>(</span><span class=n>nums</span><span class=p>,</span><span class=n>left</span><span class=p>,</span><span class=n>mid</span><span class=p>)</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>sort</span><span class=p>(</span><span class=n>nums</span><span class=p>,</span><span class=n>mid</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>1</span><span class=p>,</span><span class=n>right</span><span class=p>)</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>process</span><span class=p>(</span><span class=n>nums</span><span class=p>,</span><span class=n>left</span><span class=p>,</span><span class=n>right</span><span class=p>,</span><span class=n>mid</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kd>static</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=nf>process</span><span class=p>(</span><span class=kt>int</span><span class=o>[]</span><span class=w> </span><span class=n>nums</span><span class=p>,</span><span class=kt>int</span><span class=w> </span><span class=n>left</span><span class=p>,</span><span class=kt>int</span><span class=w> </span><span class=n>right</span><span class=p>,</span><span class=kt>int</span><span class=w> </span><span class=n>mid</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>//从最小区间开始 如果左侧值比右侧值小，说明左侧的值需要在总的最小和中出现一次</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>//当区间变大时，左侧i的值小于右侧j的值，说明右侧有right - j个值比i的值大，所以左侧i出现 right - i次</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>//至于i相对左侧其他大于它的数来说不做计算，因为上一步递归已经进行计算了</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kt>int</span><span class=o>[]</span><span class=w> </span><span class=n>temp</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=kt>int</span><span class=o>[</span><span class=n>right</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=n>left</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>1</span><span class=o>]</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kt>int</span><span class=w> </span><span class=n>l</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>left</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kt>int</span><span class=w> </span><span class=n>r</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>mid</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>1</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kt>int</span><span class=w> </span><span class=n>index</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>0</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kt>int</span><span class=w> </span><span class=n>sum</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>0</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>while</span><span class=w> </span><span class=p>(</span><span class=n>l</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=n>mid</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=n>r</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=n>right</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>nums</span><span class=o>[</span><span class=n>l</span><span class=o>]</span><span class=w> </span><span class=o>&lt;</span><span class=w> </span><span class=n>nums</span><span class=o>[</span><span class=n>r</span><span class=o>]</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>sum</span><span class=w> </span><span class=o>+=</span><span class=w> </span><span class=n>nums</span><span class=o>[</span><span class=n>l</span><span class=o>]</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=p>(</span><span class=n>right</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=n>r</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>1</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>temp</span><span class=o>[</span><span class=n>index</span><span class=o>++]</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>nums</span><span class=o>[</span><span class=n>l</span><span class=o>++]</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=k>else</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>temp</span><span class=o>[</span><span class=n>index</span><span class=o>++]</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>nums</span><span class=o>[</span><span class=n>r</span><span class=o>++]</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>while</span><span class=w> </span><span class=p>(</span><span class=n>l</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=n>mid</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>temp</span><span class=o>[</span><span class=n>index</span><span class=o>++]</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>nums</span><span class=o>[</span><span class=n>l</span><span class=o>++]</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>while</span><span class=w> </span><span class=p>(</span><span class=n>r</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=n>right</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>temp</span><span class=o>[</span><span class=n>index</span><span class=o>++]</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>nums</span><span class=o>[</span><span class=n>r</span><span class=o>++]</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>for</span><span class=w> </span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>i</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>0</span><span class=p>;</span><span class=w> </span><span class=n>i</span><span class=w> </span><span class=o>&lt;</span><span class=w> </span><span class=n>temp</span><span class=p>.</span><span class=na>length</span><span class=p>;</span><span class=w> </span><span class=n>i</span><span class=o>++</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>nums</span><span class=o>[</span><span class=n>left</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>i</span><span class=o>]</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>temp</span><span class=o>[</span><span class=n>i</span><span class=o>]</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>return</span><span class=w> </span><span class=n>sum</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><blockquote><p>快速排序</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java></code></pre></td></tr></table></div></div></div></div><div class=post-footer></div></article></main><script>document.addEventListener("DOMContentLoaded",function(){const e=document.querySelector(".post-toc");if(e){const t=e.querySelector(".post-toc-title");window.innerWidth<=768&&t.addEventListener("click",function(){e.classList.toggle("active")});const n=e.querySelectorAll("a");n.forEach(t=>{t.addEventListener("click",function(t){t.preventDefault();const s=this.getAttribute("href").substring(1),n=document.getElementById(s);n&&(window.scrollTo({top:n.offsetTop-20,behavior:"smooth"}),window.innerWidth<=768&&e.classList.remove("active"))})})}})</script><script src=/static/js/back-button.min.fc91a7f6baac199fdacc77cc4db320ef5d39d48fd68258cbef8d1ccf2e6b8ea0.js defer></script></body></html>
